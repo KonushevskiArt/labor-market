@@ -1,0 +1,21 @@
+.Layout {
+  
+}
+.Header {
+  width: 100%;
+  max-width: 1200px;
+  height: var(--navbar-height);
+  background: var(--navbar-bg);
+  display: flex;
+  align-items: center;
+  padding: 20px;
+}
+.Main {
+  padding: 20px 0px;
+  flex-grow: 1;
+  width: 100%;
+  max-width: 1200px;
+}
+.Footer {
+  padding: 10px 0;
+}
