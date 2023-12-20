@@ -1,4 +1,3 @@
-import { classNames } from 'shared/lib/classNames/classNames';
 import cls from './ThemeSwitcher.module.scss';
 import { useTheme } from 'app/providers/ThemeProvider';
 

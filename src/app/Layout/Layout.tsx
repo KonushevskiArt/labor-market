@@ -5,26 +5,30 @@ import { classNames } from 'shared/lib/classNames/classNames';
 import { Navbar } from 'widgets/Navbar';
 import cls from './Layoyt.module.scss';
 import ThemeSwitcher from 'widgets/ThemeSwitcher';
+import { Suspense } from 'react';
+import { LanguageSwitcher } from './../../widgets/LanguageSwitcher/ui/LanguageSwitcher';
 
 const AppLayout: React.FC = () => {
-  const { theme, toggleTheme } = useTheme();
+  const { theme } = useTheme();
 
   return (
     <div className={classNames("app", {}, [theme])}>
-      
-      <header className={cls.Header}>
-        <Navbar />
-        <ThemeSwitcher />
-        
-      </header>
+      <Suspense fallback=''>
+        <header className={cls.Header}>
+          <Navbar />
+          <ThemeSwitcher />
+          <LanguageSwitcher />
+        </header>
 
-      <main className={cls.Main}>
-        <AppRouter /> 
+        <main className={cls.Main}>
+          <AppRouter /> 
 
+          
+        </main>
         
-      </main>
+        <footer className={cls.Footer}>©2023 Created by Artem K.</footer>
+      </Suspense>
       
-      <footer className={cls.Footer}>©2023 Created by Artem K.</footer>
     </div>
   );
 };
