@@ -1,19 +1,23 @@
 import { Container } from "shared/ui/Container/Container";
-import React, { useState } from "react";
-
 import { Typography, Button, Space } from 'antd';
+import type { RootState } from "app/store";
+
+import { decrement, increment } from "app/store/slices/counterSlice";
+import { useDispatch, useSelector } from "react-redux";
+
 
 const { Text, Title} = Typography;
 
 const MainPage = () => {
-  const [count, setCount] = useState(0);
+  const count = useSelector((state: RootState) => state.counter.value)
+  const dispatch = useDispatch()
 
   const decrease = () => {
-    setCount((prevCount) => prevCount - 1)
+    dispatch(decrement())
   }
 
   const increase = () => {
-    setCount((prevCount) => prevCount + 1)
+    dispatch(increment())
   } 
 
   return (
