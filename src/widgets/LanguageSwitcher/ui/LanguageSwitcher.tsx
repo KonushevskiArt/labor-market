@@ -1,22 +1,25 @@
-import { useTranslation } from 'react-i18next';
-import { Select } from 'antd';
+import { useTranslation } from 'react-i18next'
+import { Select } from 'antd'
+import { type FC } from 'react'
 
-export const LanguageSwitcher = () => {
-  const { t, i18n } = useTranslation();
-  
-  const langToggle = (value: string) => {
+export const LanguageSwitcher: FC = () => {
+  const { i18n } = useTranslation()
+  const langToggle = (value: string): void => {
     i18n.changeLanguage(value)
+      .catch((err) => {
+        console.log(err)
+      })
   }
 
   return (
     <Select
       defaultValue="en"
-      style={{ width: 70 }}
+      style={{ width: 60 }}
       onChange={langToggle}
       options={[
-        { value: 'ru', label: t('ru') },
-        { value: 'en', label: t('en') },
+        { value: 'ru', label: ('ru') },
+        { value: 'en', label: ('en') }
       ]}
     />
-  );
-};
+  )
+}

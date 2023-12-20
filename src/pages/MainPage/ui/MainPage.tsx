@@ -1,24 +1,24 @@
-import { Container } from "shared/ui/Container/Container";
-import { Typography, Button, Space } from 'antd';
-import type { RootState } from "app/store";
+import { Container } from 'shared/ui/Container/Container'
+import { Typography, Button, Space } from 'antd'
+import type { RootState } from 'app/store'
 
-import { decrement, increment } from "app/store/slices/counterSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { decrement, increment } from 'app/store/slices/counterSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import { type FC } from 'react'
 
+const { Text, Title } = Typography
 
-const { Text, Title} = Typography;
-
-const MainPage = () => {
+const MainPage: FC = () => {
   const count = useSelector((state: RootState) => state.counter.value)
   const dispatch = useDispatch()
 
-  const decrease = () => {
+  const decrease = (): void => {
     dispatch(decrement())
   }
 
-  const increase = () => {
+  const increase = (): void => {
     dispatch(increment())
-  } 
+  }
 
   return (
     <Container>
@@ -30,9 +30,8 @@ const MainPage = () => {
         <Button onClick={increase}>Increase</Button>
       </Space>
 
-
     </Container>
   )
-};
+}
 
-export default MainPage;
+export default MainPage

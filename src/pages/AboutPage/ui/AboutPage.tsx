@@ -1,12 +1,12 @@
-import { Container } from "shared/ui/Container/Container";
-import React from "react";
+import { type FC } from 'react'
+import { Container } from 'shared/ui/Container/Container'
 
-const AboutPage = () => {
+const AboutPage: FC = () => {
   return (
     <Container>
       <div>ABOUT PAGE</div>
     </Container>
-  );
-};
+  )
+}
 
-export default AboutPage;
+export default AboutPage
