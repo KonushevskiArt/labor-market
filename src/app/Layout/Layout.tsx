@@ -17,18 +17,18 @@ const AppLayout: React.FC = () => {
   return (
     <div className={classNames('app', {}, [theme])}>
       <Suspense fallback=''>
-        <header className={cls.Header}>
+        <header className={cls.header}>
           <Navbar />
           <ThemeSwitcher />
           <LanguageSwitcher />
         </header>
 
-        <main className={cls.Main}>
+        <main className={cls.main}>
           <AppRouter />
 
         </main>
 
-        <footer className={cls.Footer}>{t('created_by')}</footer>
+        <footer className={cls.footer}>{t('created_by')}</footer>
       </Suspense>
 
     </div>
