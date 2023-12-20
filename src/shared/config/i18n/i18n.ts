@@ -14,7 +14,7 @@ void i18n
       escapeValue: false
     },
     backend: {
-      loadPath: _IS_DEV_ ? '/locales/{{lng}}/{{ns}}.json' : '/build/locales/{{lng}}/{{ns}}.json'
+      loadPath: '/locales/{{lng}}/{{ns}}.json'
     }
   })
 
