@@ -2,6 +2,7 @@ import HtmlWebpackPlugin from 'html-webpack-plugin'
 import webpack from 'webpack'
 import { type BuildOptions } from './types/config'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
+import CopyPlugin from 'copy-webpack-plugin'
 
 export function buildPlugins ({
   paths, isDev
@@ -18,6 +19,11 @@ export function buildPlugins ({
     new webpack.DefinePlugin({
       _IS_DEV_: JSON.stringify(isDev)
     }),
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    new CopyPlugin({
+      patterns: [
+        { from: paths.locales, to: paths.buildLocales }
+      ]
+    })
   ]
 }

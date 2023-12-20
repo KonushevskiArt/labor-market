@@ -1,9 +1,10 @@
-import "./styles/index.scss";
-import { ThemeProvider } from "app/providers/ThemeProvider";
-import AppLayout from './Layout/Layout';
-import { StoreProvider } from "./providers/StoreProvider";
+import './styles/index.scss'
+import { ThemeProvider } from 'app/providers/ThemeProvider'
+import AppLayout from './Layout/Layout'
+import { StoreProvider } from './providers/StoreProvider'
+import { type FC } from 'react'
 
-const App = () => {
+const App: FC = () => {
   return (
     <>
       <ThemeProvider>
@@ -12,8 +13,8 @@ const App = () => {
         </StoreProvider>
       </ThemeProvider>
     </>
-    
-  );
-};
 
-export default App;
+  )
+}
+
+export default App

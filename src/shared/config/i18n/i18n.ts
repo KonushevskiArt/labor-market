@@ -4,15 +4,17 @@ import Backend from 'i18next-http-backend'
 import LanguageDetector from 'i18next-browser-languagedetector'
 
 void i18n
-  .use(Backend)
-  .use(LanguageDetector)
   .use(initReactI18next)
+  .use(LanguageDetector)
+  .use(Backend)
   .init({
     fallbackLng: 'en',
-    debug: _IS_DEV_,
-
+    debug: false,
     interpolation: {
       escapeValue: false
+    },
+    backend: {
+      loadPath: _IS_DEV_ ? '/locales/{{lng}}/{{ns}}.json' : '/build/locales/{{lng}}/{{ns}}.json'
     }
   })
 
