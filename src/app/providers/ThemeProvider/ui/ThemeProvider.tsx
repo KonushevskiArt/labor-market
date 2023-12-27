@@ -19,11 +19,9 @@ const ThemeProvider: FC<ThemeProviderProps> = ({ children }) => {
   const [theme, setTheme] = useState<Theme>(defaultTheme)
 
   const { defaultAlgorithm, darkAlgorithm } = antdTheme
-  const [isDarkMode, setIsDarkMode] = useState(false)
 
   const toggleTheme = (newTheme: Theme): void => {
     setTheme(newTheme)
-    setIsDarkMode((previousValue) => !previousValue)
   }
 
   const defaultProps = useMemo(
@@ -38,7 +36,7 @@ const ThemeProvider: FC<ThemeProviderProps> = ({ children }) => {
     <ThemeContext.Provider value={defaultProps}>
       <ConfigProvider
         theme={{
-          algorithm: isDarkMode ? darkAlgorithm : defaultAlgorithm
+          algorithm: theme === 'dark' ? darkAlgorithm : defaultAlgorithm
         }}>
         {children}
       </ConfigProvider>

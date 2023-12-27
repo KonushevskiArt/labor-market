@@ -4,6 +4,8 @@ import { type FC } from 'react'
 
 export const LanguageSwitcher: FC = () => {
   const { i18n } = useTranslation()
+  const localLanguage = localStorage.getItem('i18nextLng') || 'en'
+
   const langToggle = (value: string): void => {
     i18n.changeLanguage(value)
       .catch((err) => {
@@ -13,7 +15,7 @@ export const LanguageSwitcher: FC = () => {
 
   return (
     <Select
-      defaultValue="en"
+      defaultValue={localLanguage}
       style={{ width: 60 }}
       onChange={langToggle}
       options={[

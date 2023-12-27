@@ -25,7 +25,6 @@ const AppLayout: React.FC = () => {
 
         <main className={cls.main}>
           <AppRouter />
-
         </main>
 
         <footer className={cls.footer}>{t('created_by')}</footer>

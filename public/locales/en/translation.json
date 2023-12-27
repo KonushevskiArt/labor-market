@@ -3,5 +3,8 @@
   "navigation_about": "About",
   "ru": "ru",
   "en": "en",
-  "created_by": "©2023 Developed by Artem K."
+  "created_by": "©2023 Developed by Artem K.",
+  "pageNotFound": "Page was not found",
+  "pageErrorMessage": "An unexpected error has occurred",
+  "reloadPage": "reload page"
 }
