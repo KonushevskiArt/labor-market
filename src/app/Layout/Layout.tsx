@@ -9,6 +9,8 @@ import ThemeSwitcher from 'widgets/ThemeSwitcher'
 
 import { useTranslation } from 'react-i18next'
 import { LanguageSwitcher } from 'widgets/LanguageSwitcher'
+import { Logo } from 'widgets/Logo'
+import CopyRightIcon from 'shared/assets/icons/copyRights.svg'
 
 const AppLayout: React.FC = () => {
   const { theme } = useTheme()
@@ -18,6 +20,7 @@ const AppLayout: React.FC = () => {
     <div className={classNames('app', {}, [theme])}>
       <Suspense fallback=''>
         <header className={cls.header}>
+          <Logo />
           <Navbar />
           <ThemeSwitcher />
           <LanguageSwitcher />
@@ -27,7 +30,10 @@ const AppLayout: React.FC = () => {
           <AppRouter />
         </main>
 
-        <footer className={cls.footer}>{t('created_by')}</footer>
+        <footer className={cls.footer}>
+          {t('created_by')}
+          <CopyRightIcon className={cls.copyRightIcon} />
+        </footer>
       </Suspense>
 
     </div>

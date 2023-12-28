@@ -1,24 +1,24 @@
 import { type RouteProps } from 'react-router-dom'
-import { MainPage } from 'pages/MainPage'
 import { AboutPage } from 'pages/AboutPage'
 import { NotFoundPage } from 'pages/NotFoundPage'
+import { SearchVacancy } from 'pages/SearchVacancies'
 
 export enum AppRoutes {
-  MAIN = 'main',
+  SEARCH_VACANCY = 'searchVacancy',
   ABOUT = 'about',
   NOT_FOUND = 'notFound'
 }
 
 export const RoutePath: Record<AppRoutes, string> = {
-  [AppRoutes.MAIN]: '/',
+  [AppRoutes.SEARCH_VACANCY]: '/',
   [AppRoutes.ABOUT]: '/about',
   [AppRoutes.NOT_FOUND]: '*'
 }
 
 export const routeConfig: Record<AppRoutes, RouteProps> = {
-  [AppRoutes.MAIN]: {
-    path: RoutePath.main,
-    element: <MainPage />
+  [AppRoutes.SEARCH_VACANCY]: {
+    path: RoutePath.searchVacancy,
+    element: <SearchVacancy />
   },
   [AppRoutes.ABOUT]: {
     path: RoutePath.about,

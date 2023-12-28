@@ -1,5 +1,5 @@
 import { type FC } from 'react'
-import { Container } from 'shared/ui/Container/Container'
+import { Container } from 'shared/ui/Container'
 
 const AboutPage: FC = () => {
   return (

@@ -1,4 +1,4 @@
-import { Container } from 'shared/ui/Container/Container'
+import { Container } from 'shared/ui/Container'
 import { Typography, Button, Space } from 'antd'
 import type { RootState } from 'app/store'
 

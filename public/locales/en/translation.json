@@ -3,8 +3,15 @@
   "navigation_about": "About",
   "ru": "ru",
   "en": "en",
-  "created_by": "©2023 Developed by Artem K.",
+  "created_by": "©2023 Developed by",
   "pageNotFound": "Page was not found",
   "pageErrorMessage": "An unexpected error has occurred",
-  "reloadPage": "reload page"
+  "reloadPage": "reload page",
+  "createdBy": "posted by",
+  "employment": "busyness",
+  "city": "city",
+  "busyness": "busyness",
+  "solary": "salary",
+  "salary": "salary",
+  "posted": "posted"
 }
