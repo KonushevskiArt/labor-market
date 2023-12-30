@@ -20,5 +20,13 @@
   "workExperience": "Work experience",
   "requirements": "Requirements",
   "years": "years",
-  "contactNumber": "Contact number"
+  "contactNumber": "Contact number",
+  "cancel": "Cancel ",
+  "login": "Login",
+  "loginTitle": "Login",
+  "email": "Email",
+  "password": "Password",
+  "requiredField": "This field is required",
+  "dontHaveAccMessage": "If you don't have an account",
+  "register": "register"
 }

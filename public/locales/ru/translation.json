@@ -18,5 +18,13 @@
   "workExperience": "Опыт работы",
   "requirements": "Требования",
   "years": "года",
-  "contactNumber": "Номер телефона "
+  "contactNumber": "Номер телефона ",
+  "cancel": "Отменить",
+  "login": "Авторизоваться",
+  "loginTitle": "Авторизация",
+  "password": "Пароль",
+  "email": "Почта",
+  "requiredField": "Поле обязательно для заполнения ",
+  "dontHaveAccMessage": "Если у вас нет аккаунта",
+  "register": "зарегестрируйтесь"
 }
