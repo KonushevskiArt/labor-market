@@ -3,6 +3,7 @@ import { type FC } from 'react'
 import { Container } from 'shared/ui/Container'
 import { vacanciesList } from './mock'
 import { Vacancy } from 'entities/Vacancy/ui/Vacancy'
+import { SearchBar } from './../../../widgets/SearchBar/ui/SearchBar'
 
 interface SearchVacancyProps {
   className?: string
@@ -11,6 +12,7 @@ interface SearchVacancyProps {
 export const SearchVacancy: FC = ({ className }: SearchVacancyProps) => {
   return (
     <Container>
+      <SearchBar />
       <ul className={cls.SearchVacancy}>
         {vacanciesList.map(vacancy => (
           <li key={vacancy.id}>

@@ -1,5 +1,5 @@
 {
-  "navigation_main": "Главная",
+  "navigation_main": "Вакансии",
   "navigation_about": "О сайте",
   "ru": "ру",
   "en": "анг",
@@ -7,9 +7,16 @@
   "pageNotFound": "Страница не найдена ",
   "pageErrorMessage": "Возникла непредвиденная ошибка ",
   "reloadPage": "перезагрузить страницу",
-  "createdBy": "размещено",
-  "busyness": "занятость",
-  "city": "город",
-  "salary": "зарплата ",
-  "posted": "размещена"
+  "createdBy": "Размещено",
+  "busyness": "Занятость",
+  "city": "Город",
+  "salary": "Зарплата ",
+  "posted": "размещена",
+  "searchText": "поиск по тексту",
+  "showContacts": "показать контакты",
+  "description": "Описание",
+  "workExperience": "Опыт работы",
+  "requirements": "Требования",
+  "years": "года",
+  "contactNumber": "Номер телефона "
 }

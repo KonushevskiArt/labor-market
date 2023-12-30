@@ -1,9 +1,9 @@
 import { classNames } from 'shared/lib/classNames/classNames'
 import cls from './Navbar.module.scss'
-import { AppLink, AppLinkTheme } from 'shared/ui/AppLink/AppLink'
 import { useTranslation } from 'react-i18next'
 import { type FC } from 'react'
 import { v4 as uuid } from 'uuid'
+import { NavLink } from 'react-router-dom'
 
 interface NavbarProps {
   className?: string
@@ -20,15 +20,13 @@ export const Navbar: FC = ({ className }: NavbarProps) => {
     <div className={classNames(cls.Navbar, {}, [className])}>
       <nav className={cls.links}>
         {links.map(({ id, path, title }) => (
-          <div key={id} className={cls.linkWrapper}>
-            <AppLink
-              theme={AppLinkTheme.PRIMARY}
-              to={path}
-              className={classNames(cls.mainLink, {}, [cls.navLink])}
-            >
-              {title}
-            </AppLink>
-          </div>
+          <NavLink
+            to={path}
+            key={id}
+            className={({ isActive }) => isActive ? classNames(cls.navLink, {}, [cls.active]) : cls.navLink}
+          >
+            {title}
+          </NavLink>
         )
         )}
       </nav>

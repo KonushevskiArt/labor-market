@@ -11,6 +11,7 @@ import { useTranslation } from 'react-i18next'
 import { LanguageSwitcher } from 'widgets/LanguageSwitcher'
 import { Logo } from 'widgets/Logo'
 import CopyRightIcon from 'shared/assets/icons/copyRights.svg'
+import { LoginButton } from 'widgets/LoginButton'
 
 const AppLayout: React.FC = () => {
   const { theme } = useTheme()
@@ -22,6 +23,7 @@ const AppLayout: React.FC = () => {
         <header className={cls.header}>
           <Logo />
           <Navbar />
+          <LoginButton />
           <ThemeSwitcher />
           <LanguageSwitcher />
         </header>
