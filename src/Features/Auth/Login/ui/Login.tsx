@@ -5,6 +5,7 @@ import { Modal } from 'antd'
 import { LoginOutlined } from '@ant-design/icons'
 import { LoginForm } from 'Features/Auth/LoginForm'
 import { useTranslation } from 'react-i18next'
+import { RegisterForm } from 'Features/Auth/RegisterForm'
 
 interface LoginProps {
   className?: string
@@ -13,6 +14,7 @@ interface LoginProps {
 export const Login: FC = ({ className }: LoginProps) => {
   const { t } = useTranslation()
   const [open, setOpen] = useState(true)
+  const [isRegisterForm, setRegisterForm] = useState(true)
 
   const showModal = (): void => {
     setOpen(true)
@@ -44,7 +46,10 @@ export const Login: FC = ({ className }: LoginProps) => {
         onCancel={handleCancel}
         footer={[]}
       >
-        <LoginForm handleLogin={handleSubmit} onCancel={handleCancel} />
+        {isRegisterForm
+          ? <RegisterForm setRegisterForm={setRegisterForm} handleRegister={handleSubmit} onCancel={handleCancel} />
+          : <LoginForm setRegisterForm={setRegisterForm} handleLogin={handleSubmit} onCancel={handleCancel} />
+      }
       </Modal>
     </>
   )

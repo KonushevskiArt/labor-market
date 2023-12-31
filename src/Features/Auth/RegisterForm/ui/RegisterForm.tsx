@@ -1,23 +1,23 @@
-import cls from './LoginForm.module.scss'
-import { type Dispatch, type SetStateAction, type FC } from 'react'
+import cls from './RegisterForm.module.scss'
+import { type SetStateAction, type FC, type Dispatch } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useForm, type SubmitHandler } from 'react-hook-form'
 import { Button } from 'antd'
-import { LoginOutlined } from '@ant-design/icons'
+import { UsergroupAddOutlined } from '@ant-design/icons'
 
 interface Inputs {
   email: string
   password: string
 }
 
-interface LoginFormProps {
+interface RegisterFormProps {
   className?: string
-  handleLogin: () => void
+  handleRegister: () => void
   onCancel: () => void
   setRegisterForm: Dispatch<SetStateAction<boolean>>
 }
 
-export const LoginForm: FC<LoginFormProps> = ({ className, onCancel, handleLogin, setRegisterForm }) => {
+export const RegisterForm: FC<RegisterFormProps> = ({ className, onCancel, handleRegister, setRegisterForm }) => {
   const {
     register,
     handleSubmit,
@@ -58,17 +58,17 @@ export const LoginForm: FC<LoginFormProps> = ({ className, onCancel, handleLogin
         {errors.password && <span className={cls.error}>{errors.password.message}</span>}
       </label>
 
-      <Button disabled={Boolean(isError)} htmlType="submit" size='large' icon={<LoginOutlined />}>{t('login')}</Button>
-        <p className={cls.registrationMessage}>
-          {t('dontHaveAccMessage')}&nbsp;
-          <Button
-            className={cls.buttonLink}
-            onClick={() => { setRegisterForm(true) } }
-            type="link"
-          >
-            {t('register')}
-          </Button>
-        </p>
+      <Button disabled={Boolean(isError)} htmlType="submit" size='large' icon={<UsergroupAddOutlined />}>{t('register')}</Button>
+      <p className={cls.registrationMessage}>
+        {t('haveAccMessage')}&nbsp;
+        <Button
+          className={cls.buttonLink}
+          type="link"
+          onClick={() => { setRegisterForm(false) }}
+        >
+           {t('login')}
+        </Button>
+      </p>
     </form>
   )
 }
