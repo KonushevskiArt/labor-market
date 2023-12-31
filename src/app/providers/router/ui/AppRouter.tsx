@@ -1,5 +1,6 @@
 import { AboutPage } from 'pages/AboutPage'
 import { NotFoundPage } from 'pages/NotFoundPage'
+import { PersonalCabinetPage } from 'pages/PersonalCabinetPage'
 import { SearchVacancy } from 'pages/SearchVacanciesPage'
 import { VacancyPage } from 'pages/VacancyPage'
 import { type FC, Suspense } from 'react'
@@ -13,6 +14,7 @@ const AppRouter: FC = () => {
         <Route path={'/'} element={<SearchVacancy />} />
         <Route path={':id'} element={<VacancyPage />} />
         <Route path={'/about'} element={<AboutPage />} />
+        <Route path={'/personal-cabinet'} element={<PersonalCabinetPage />} />
         <Route path={'*'} element={<NotFoundPage />} />
       </Routes>
     </Suspense>

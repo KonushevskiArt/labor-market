@@ -13,7 +13,7 @@
   "busyness": "Busyness",
   "solary": "salary",
   "salary": "Salary",
-  "posted": "posted",
+  "posted": "Posted",
   "searchText": "search text",
   "showContacts": "show contacts",
   "description": "Description",
@@ -32,5 +32,10 @@
   "minLength": "The minimum length is 5 characters",
   "emailValidErrorMessage": "Include @ in the email address, and it should be a valid email ",
   "maxLength": "The maximum length is 45 characters",
-  "haveAccMessage": "if you already have an account"
+  "haveAccMessage": "if you already have an account",
+  "personalCabinet": "Personal cabinet",
+  "title": "Title",
+  "edit": "Edit",
+  "remove": "Remove",
+  "createNewVacancy": "Create new vacancy"
 }

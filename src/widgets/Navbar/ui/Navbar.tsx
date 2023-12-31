@@ -14,6 +14,7 @@ export const Navbar: FC = ({ className }: NavbarProps) => {
 
   const links = [
     { id: uuid(), path: '/', title: t('navigation_main') },
+    { id: uuid(), path: '/personal-cabinet', title: t('personalCabinet') },
     { id: uuid(), path: '/about', title: t('navigation_about') }
   ]
   return (

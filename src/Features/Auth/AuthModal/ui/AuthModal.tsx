@@ -1,5 +1,5 @@
 import { classNames } from 'shared/lib/classNames/classNames'
-import cls from './Login.module.scss'
+import cls from './AuthModal.module.scss'
 import { useState, type FC } from 'react'
 import { Modal } from 'antd'
 import { LoginOutlined } from '@ant-design/icons'
@@ -7,13 +7,13 @@ import { LoginForm } from 'Features/Auth/LoginForm'
 import { useTranslation } from 'react-i18next'
 import { RegisterForm } from 'Features/Auth/RegisterForm'
 
-interface LoginProps {
+interface AuthModalProps {
   className?: string
 }
 
-export const Login: FC = ({ className }: LoginProps) => {
+export const AuthModal: FC = ({ className }: AuthModalProps) => {
   const { t } = useTranslation()
-  const [open, setOpen] = useState(true)
+  const [open, setOpen] = useState(false)
   const [isRegisterForm, setRegisterForm] = useState(true)
 
   const showModal = (): void => {
