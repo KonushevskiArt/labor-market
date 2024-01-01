@@ -13,10 +13,14 @@ import { Logo } from 'widgets/Logo'
 import CopyRightIcon from 'shared/assets/icons/copyRights.svg'
 import { AuthModal } from 'Features/Auth/AuthModal'
 import { Toaster } from 'react-hot-toast'
+import { useAuth } from 'shared/hooks/useAuth'
+import { Logout } from 'Features/Auth/Logout'
 
 const AppLayout: React.FC = () => {
   const { theme } = useTheme()
   const { t } = useTranslation()
+  const { isAuth, email } = useAuth()
+  console.log(isAuth, email)
 
   return (
     <div className={classNames('app', {}, [theme])}>
@@ -24,7 +28,13 @@ const AppLayout: React.FC = () => {
         <header className={cls.header}>
           <Logo />
           <Navbar />
-          <AuthModal />
+          {isAuth
+            ? (
+              <Logout />
+              )
+            : <AuthModal />
+
+        }
           <ThemeSwitcher />
           <LanguageSwitcher />
         </header>
