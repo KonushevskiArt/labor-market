@@ -12,6 +12,7 @@ import { setUser } from 'app/store/slices/userSlice'
 interface Inputs {
   email: string
   password: string
+  repeatPassword: string
 }
 
 interface IExpandedUser extends User {
@@ -27,32 +28,40 @@ export const RegisterForm: FC<RegisterFormProps> = ({ hideModal, setRegisterForm
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors }
   } = useForm<Inputs>()
   const [isLoading, setLoading] = useState(false)
   const dispatch = useTypedDispatch()
+  const [isIdenticalPasswords, setIdenticalPasswords] = useState(true)
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    setLoading(true)
-    try {
-      const { email, password } = data
-      const auth = getAuth()
-      const { user } = await createUserWithEmailAndPassword(auth, email, password)
-      const expendedUser = user as IExpandedUser
-      toast.success('successfully registered')
+    if (data.password === data.repeatPassword) {
+      setIdenticalPasswords(true)
+      setLoading(true)
 
-      dispatch(setUser({
-        email: expendedUser.email,
-        uid: expendedUser.uid,
-        token: expendedUser.accessToken
-      }))
+      try {
+        const { email, password } = data
+        const auth = getAuth()
+        const { user } = await createUserWithEmailAndPassword(auth, email, password)
+        const expendedUser = user as IExpandedUser
+        toast.success('successfully registered')
 
-      hideModal()
-    } catch (error) {
-      const messageError = error.message as string
-      toast.error(messageError)
-    } finally {
-      setLoading(false)
+        dispatch(setUser({
+          email: expendedUser.email,
+          uid: expendedUser.uid,
+          token: expendedUser.accessToken
+        }))
+        reset()
+        hideModal()
+      } catch (error) {
+        const messageError = error.message as string
+        toast.error(messageError)
+      } finally {
+        setLoading(false)
+      }
+    } else {
+      setIdenticalPasswords(false)
     }
   }
   const { t } = useTranslation()
@@ -83,6 +92,15 @@ export const RegisterForm: FC<RegisterFormProps> = ({ hideModal, setRegisterForm
           maxLength: { value: 45, message: t('maxLength') }
         })} />
         {errors.password && <span className={cls.error}>{errors.password.message}</span>}
+      </label>
+
+      <label className={cls.label}>
+        <span className={cls.labelTitle}>{t('repeatPassword')}</span>
+        <input onChange={() => { setIdenticalPasswords(true) }} className={cls.input} {...register('repeatPassword', {
+          required: { value: true, message: t('requiredField') }
+        })} />
+        {errors.repeatPassword && <span className={cls.error}>{errors.repeatPassword.message}</span>}
+        {!isIdenticalPasswords && <span className={cls.error}>{t('passwordsDoNotMatch')}</span>}
       </label>
 
       <Button

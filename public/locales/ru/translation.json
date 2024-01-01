@@ -35,5 +35,7 @@
   "title": "Название",
   "edit": "Редактировать",
   "remove": "удалить",
-  "createNewVacancy": "Создать новую вакансию"
+  "createNewVacancy": "Создать новую вакансию",
+  "repeatPassword": "Повторите пароль",
+  "passwordsDoNotMatch": "пароли не совпадают "
 }

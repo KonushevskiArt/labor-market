@@ -27,6 +27,7 @@ export const LoginForm: FC<LoginFormProps> = ({ hideModal, setRegisterForm }) =>
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors }
   } = useForm<Inputs>()
   const [isLoading, setLoading] = useState(false)
@@ -47,7 +48,7 @@ export const LoginForm: FC<LoginFormProps> = ({ hideModal, setRegisterForm }) =>
           uid: expendedUser.uid,
           token: expendedUser.accessToken
         }))
-
+        reset()
         hideModal()
       })
       .catch(error => {

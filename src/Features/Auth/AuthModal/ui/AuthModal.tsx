@@ -9,7 +9,7 @@ import { RegisterForm } from 'Features/Auth/RegisterForm'
 export const AuthModal: FC = () => {
   const { t } = useTranslation()
   const [open, setOpen] = useState(false)
-  const [isRegisterForm, setRegisterForm] = useState(true)
+  const [isRegisterForm, setRegisterForm] = useState(false)
 
   const showModal = (): void => {
     setOpen(true)

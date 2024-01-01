@@ -37,5 +37,7 @@
   "title": "Title",
   "edit": "Edit",
   "remove": "Remove",
-  "createNewVacancy": "Create new vacancy"
+  "createNewVacancy": "Create new vacancy",
+  "repeatPassword": "Repeat password",
+  "passwordsDoNotMatch": "Passwords don't match"
 }
