@@ -12,6 +12,7 @@ import { LanguageSwitcher } from 'widgets/LanguageSwitcher'
 import { Logo } from 'widgets/Logo'
 import CopyRightIcon from 'shared/assets/icons/copyRights.svg'
 import { AuthModal } from 'Features/Auth/AuthModal'
+import { Toaster } from 'react-hot-toast'
 
 const AppLayout: React.FC = () => {
   const { theme } = useTheme()
@@ -37,7 +38,12 @@ const AppLayout: React.FC = () => {
           <CopyRightIcon className={cls.copyRightIcon} />
         </footer>
       </Suspense>
-
+      <Toaster
+        position='top-center'
+        toastOptions={{
+          duration: 4000
+        }}
+      />
     </div>
   )
 }

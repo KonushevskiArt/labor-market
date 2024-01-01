@@ -1,32 +1,59 @@
 import cls from './RegisterForm.module.scss'
-import { type SetStateAction, type FC, type Dispatch } from 'react'
+import { type SetStateAction, type FC, type Dispatch, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useForm, type SubmitHandler } from 'react-hook-form'
 import { Button } from 'antd'
 import { UsergroupAddOutlined } from '@ant-design/icons'
+import { getAuth, createUserWithEmailAndPassword, type User } from 'firebase/auth'
+import toast from 'react-hot-toast'
+import { useTypedDispatch } from 'app/store'
+import { setUser } from 'app/store/slices/userSlice'
 
 interface Inputs {
   email: string
   password: string
 }
 
+interface IExpandedUser extends User {
+  accessToken: string
+}
+
 interface RegisterFormProps {
-  className?: string
-  handleRegister: () => void
-  onCancel: () => void
+  hideModal: () => void
   setRegisterForm: Dispatch<SetStateAction<boolean>>
 }
 
-export const RegisterForm: FC<RegisterFormProps> = ({ className, onCancel, handleRegister, setRegisterForm }) => {
+export const RegisterForm: FC<RegisterFormProps> = ({ hideModal, setRegisterForm }) => {
   const {
     register,
     handleSubmit,
     formState: { errors }
   } = useForm<Inputs>()
+  const [isLoading, setLoading] = useState(false)
+  const dispatch = useTypedDispatch()
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
-    console.log('isError', isError)
-    console.log(data)
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    setLoading(true)
+    try {
+      const { email, password } = data
+      const auth = getAuth()
+      const { user } = await createUserWithEmailAndPassword(auth, email, password)
+      const expendedUser = user as IExpandedUser
+      toast.success('successfully registered')
+
+      dispatch(setUser({
+        email: expendedUser.email,
+        uid: expendedUser.uid,
+        token: expendedUser.accessToken
+      }))
+
+      hideModal()
+    } catch (error) {
+      const messageError = error.message as string
+      toast.error(messageError)
+    } finally {
+      setLoading(false)
+    }
   }
   const { t } = useTranslation()
 
@@ -41,7 +68,7 @@ export const RegisterForm: FC<RegisterFormProps> = ({ className, onCancel, handl
           defaultValue=""
           {...register('email', {
             required: { value: true, message: t('requiredField') },
-            minLength: { value: 5, message: t('minLength') },
+            minLength: { value: 6, message: t('minLength') },
             pattern: { value: /^\S+@\S+$/i, message: t('emailValidErrorMessage') }
           })}
         />
@@ -52,13 +79,21 @@ export const RegisterForm: FC<RegisterFormProps> = ({ className, onCancel, handl
         <span className={cls.labelTitle}>{t('password')}</span>
         <input className={cls.input} {...register('password', {
           required: { value: true, message: t('requiredField') },
-          minLength: { value: 5, message: t('minLength') },
+          minLength: { value: 6, message: t('minLength') },
           maxLength: { value: 45, message: t('maxLength') }
         })} />
         {errors.password && <span className={cls.error}>{errors.password.message}</span>}
       </label>
 
-      <Button disabled={Boolean(isError)} htmlType="submit" size='large' icon={<UsergroupAddOutlined />}>{t('register')}</Button>
+      <Button
+        disabled={Boolean(isError) || isLoading}
+        loading={isLoading}
+        htmlType="submit"
+        size='large'
+        icon={<UsergroupAddOutlined />}
+      >
+        {t('register')}
+      </Button>
       <p className={cls.registrationMessage}>
         {t('haveAccMessage')}&nbsp;
         <Button

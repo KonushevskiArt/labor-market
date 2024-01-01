@@ -1,4 +1,3 @@
-import { classNames } from 'shared/lib/classNames/classNames'
 import cls from './AuthModal.module.scss'
 import { useState, type FC } from 'react'
 import { Modal } from 'antd'
@@ -7,11 +6,7 @@ import { LoginForm } from 'Features/Auth/LoginForm'
 import { useTranslation } from 'react-i18next'
 import { RegisterForm } from 'Features/Auth/RegisterForm'
 
-interface AuthModalProps {
-  className?: string
-}
-
-export const AuthModal: FC = ({ className }: AuthModalProps) => {
+export const AuthModal: FC = () => {
   const { t } = useTranslation()
   const [open, setOpen] = useState(false)
   const [isRegisterForm, setRegisterForm] = useState(true)
@@ -20,20 +15,15 @@ export const AuthModal: FC = ({ className }: AuthModalProps) => {
     setOpen(true)
   }
 
-  const handleSubmit = (): void => {
-    setTimeout(() => {
-      setOpen(false)
-    }, 3000)
-  }
-
-  const handleCancel = (): void => {
+  const hideModal = (): void => {
     setOpen(false)
   }
+
   return (
     <>
       <button
         onClick={showModal}
-        className={classNames(cls.LoginButton, {}, [className])}
+        className={cls.LoginButton}
         title="login"
       >
         <LoginOutlined className={cls.LoginIcon} />
@@ -42,13 +32,13 @@ export const AuthModal: FC = ({ className }: AuthModalProps) => {
         open={open}
         className={cls.modal}
         title={t('loginTitle')}
-        onOk={handleSubmit}
-        onCancel={handleCancel}
+        onOk={hideModal}
+        onCancel={hideModal}
         footer={[]}
       >
         {isRegisterForm
-          ? <RegisterForm setRegisterForm={setRegisterForm} handleRegister={handleSubmit} onCancel={handleCancel} />
-          : <LoginForm setRegisterForm={setRegisterForm} handleLogin={handleSubmit} onCancel={handleCancel} />
+          ? <RegisterForm setRegisterForm={setRegisterForm} hideModal={hideModal} />
+          : <LoginForm setRegisterForm={setRegisterForm} hideModal={hideModal} />
       }
       </Modal>
     </>
