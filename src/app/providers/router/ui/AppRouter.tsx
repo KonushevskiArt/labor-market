@@ -1,4 +1,5 @@
 import { AboutPage } from 'pages/AboutPage'
+import { CreateVacancyPage } from 'pages/CreateVacancyPage'
 import { NotFoundPage } from 'pages/NotFoundPage'
 import { PersonalCabinetPage } from 'pages/PersonalCabinetPage'
 import { SearchVacancy } from 'pages/SearchVacanciesPage'
@@ -14,6 +15,7 @@ const AppRouter: FC = () => {
         <Route path={'/'} element={<SearchVacancy />} />
         <Route path={':id'} element={<VacancyPage />} />
         <Route path={'/about'} element={<AboutPage />} />
+        <Route path={'/create-vacancy'} element={<CreateVacancyPage />} />
         <Route path={'/personal-cabinet'} element={<PersonalCabinetPage />} />
         <Route path={'*'} element={<NotFoundPage />} />
       </Routes>

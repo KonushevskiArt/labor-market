@@ -39,5 +39,8 @@
   "remove": "Remove",
   "createNewVacancy": "Create new vacancy",
   "repeatPassword": "Repeat password",
-  "passwordsDoNotMatch": "Passwords don't match"
+  "passwordsDoNotMatch": "Passwords don't match",
+  "maxLength140": "The maximum length is 140 characters",
+  "mobileNumberValidErrorMessage": "Enter a valid phone number",
+  "maxLength1000": "The maximum length is 1000 characters"
 }

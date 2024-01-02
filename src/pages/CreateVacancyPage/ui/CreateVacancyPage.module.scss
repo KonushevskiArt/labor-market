@@ -1,0 +1,22 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.text {
+  margin-top: 50px;
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.error {
+  display: block;
+  width: 300px;
+  font-size: var(--font-size-md);
+  color: var(--error-color);
+}
+
+.form {
+  font-size: var(--font-size-md);
+}

@@ -37,5 +37,8 @@
   "remove": "удалить",
   "createNewVacancy": "Создать новую вакансию",
   "repeatPassword": "Повторите пароль",
-  "passwordsDoNotMatch": "пароли не совпадают "
+  "passwordsDoNotMatch": "пароли не совпадают ",
+  "maxLength140": "Максимальная длина - 140 символов",
+  "mobileNumberValidErrorMessage": "Введите действительный номер телефона",
+  "maxLength1000": "Максимальная длина - 1000 символов"
 }

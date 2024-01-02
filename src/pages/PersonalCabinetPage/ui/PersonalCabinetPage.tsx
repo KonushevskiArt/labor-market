@@ -4,6 +4,7 @@ import { Container } from 'shared/ui/Container'
 import { userData } from './mock'
 import { useTranslation } from 'react-i18next'
 import { Button } from 'antd'
+import { Link } from 'react-router-dom'
 
 interface PersonalCabinetPageProps {
   className?: string
@@ -30,7 +31,9 @@ export const PersonalCabinetPage: FC = ({ className }: PersonalCabinetPageProps)
             </li>
           ))}
         </ol>
-        <Button type='primary'>{t('createNewVacancy')}</Button>
+        <Link to='/create-vacancy'>
+          <Button type='primary'>{t('createNewVacancy')}</Button>
+        </Link>
       </div>
     </Container>
   )
