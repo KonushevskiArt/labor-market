@@ -55,5 +55,7 @@
   "value": "Значение",
   "createVacancy": "Создать вакансию",
   "lineFeedInTextArea": "Если вы хотите сделать перевод строки, то используйте /n",
-  "employment": "Занятость "
+  "employment": "Занятость ",
+  "editingVacancy": "Редактирование вакансии",
+  "editVacancy": "Редактировать вакансию"
 }

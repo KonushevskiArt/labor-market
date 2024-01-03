@@ -13,9 +13,9 @@ export interface IVacancy {
   title: string
   date: string
   employment: string
-  description: string[]
+  description: string
   workExperience: number
-  requirements: string[]
+  requirements: string
   contactNumber: string
   location: ILocation
   salary: ISalary

@@ -57,5 +57,7 @@
   "value": "Value",
   "createVacancy": "Create a vacancy",
   "lineFeedInTextArea": "If you want to make a line feed, then use /n",
-  "CreatingOfANewVacancy": "Creating a new vacancy"
+  "CreatingOfANewVacancy": "Creating a new vacancy",
+  "editingVacancy": "Editing a vacancy",
+  "editVacancy": "Edit the vacancy"
 }

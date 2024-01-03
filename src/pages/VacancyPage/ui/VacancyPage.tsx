@@ -26,6 +26,11 @@ const VacancyPage: FC = ({ className }: VacancyPageProps) => {
     createdBy
   } = data
 
+  const convertStringToArrayBySlashN = (str: string): string[] => {
+    const res = str.split('/n')
+    return res
+  }
+
   return (
     <Container>
       <div className={classNames(cls.VacancyPage, {}, [className])}>
@@ -40,13 +45,13 @@ const VacancyPage: FC = ({ className }: VacancyPageProps) => {
         <Divider plain></Divider>
         <ol className={cls.description}>
           <span className={cls.descriptionTitle}><b className='fs-lg'>{t('description')}</b></span>
-          {description.map((dscr, i) => (
+          {convertStringToArrayBySlashN(description).map((dscr, i) => (
             <li key={i}>{dscr}</li>
           ))}
         </ol>
         <ol className={cls.requirements}>
           <span className={cls.requirementsTitle}><b className='fs-lg'>{t('requirements')}</b></span>
-          {requirements.map((requ, i) => (
+          {convertStringToArrayBySlashN(requirements).map((requ, i) => (
             <li key={i}>{requ}</li>
           ))}
         </ol>

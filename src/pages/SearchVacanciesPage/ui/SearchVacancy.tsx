@@ -3,7 +3,7 @@ import { type FC } from 'react'
 import { Container } from 'shared/ui/Container'
 import { vacanciesList } from './mock'
 import { Vacancy } from 'entities/Vacancy/ui/Vacancy'
-import { SearchBar } from './../../../widgets/SearchBar/ui/SearchBar'
+import { SearchBar } from 'widgets/SearchBar'
 
 interface SearchVacancyProps {
   className?: string

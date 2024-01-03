@@ -2,21 +2,8 @@ import { type IVacancy } from 'entities/Vacancy/types'
 
 export const vacanciesList: IVacancy[] = [
   {
-    description: [
-      'Hello, we are seeking for new employees',
-      'You need to do this, this and that',
-      'You need to do this, this and that',
-      'You need to do this, this and that',
-      'You need to do this, this and that'
-    ],
-    requirements: [
-      'driver license',
-      'driver license',
-      'driver license',
-      'driver license',
-      'driver license',
-      'drive experience at least 3 years'
-    ],
+    description: 'Hello, we are seeking for new employees /nYou need to do this, this and that /nYou need to do this, this and that /n You need to do this, this and that /n You need to do this, this and that',
+    requirements: 'driver license /n driver license driver /n license driver /n license driver license /n driver license',
     id: '650c616edc31851e20cbd653',
     title: 'REact dev',
     date: '21.02.2023',
@@ -35,21 +22,8 @@ export const vacanciesList: IVacancy[] = [
     createdBy: 'Fima'
   },
   {
-    description: [
-      'Hello, we are seeking for new employees',
-      'You need to do this, this and that',
-      'You need to do this, this and that',
-      'You need to do this, this and that',
-      'You need to do this, this and that'
-    ],
-    requirements: [
-      'driver license',
-      'driver license',
-      'driver license',
-      'driver license',
-      'driver license',
-      'drive experience at least 3 years'
-    ],
+    description: 'Hello, we are seeking for new employees /nYou need to do this, this and that /nYou need to do this, this and that /n You need to do this, this and that /n You need to do this, this and that',
+    requirements: 'driver license /n driver license driver /n license driver /n license driver license /n driver license',
     id: '650c616edc31851e20cbd653',
     title: 'REact dev',
     date: '21.02.2023',
@@ -68,21 +42,8 @@ export const vacanciesList: IVacancy[] = [
     createdBy: 'Fima'
   },
   {
-    description: [
-      'Hello, we are seeking for new employees',
-      'You need to do this, this and that',
-      'You need to do this, this and that',
-      'You need to do this, this and that',
-      'You need to do this, this and that'
-    ],
-    requirements: [
-      'driver license',
-      'driver license',
-      'driver license',
-      'driver license',
-      'driver license',
-      'drive experience at least 3 years'
-    ],
+    description: 'Hello, we are seeking for new employees /nYou need to do this, this and that /nYou need to do this, this and that /n You need to do this, this and that /n You need to do this, this and that',
+    requirements: 'driver license /n driver license driver /n license driver /n license driver license /n driver license',
     id: '650c616edc31851e20cbd653',
     title: 'REact dev',
     date: '21.02.2023',
@@ -101,21 +62,8 @@ export const vacanciesList: IVacancy[] = [
     createdBy: 'Fima'
   },
   {
-    description: [
-      'Hello, we are seeking for new employees',
-      'You need to do this, this and that',
-      'You need to do this, this and that',
-      'You need to do this, this and that',
-      'You need to do this, this and that'
-    ],
-    requirements: [
-      'driver license',
-      'driver license',
-      'driver license',
-      'driver license',
-      'driver license',
-      'drive experience at least 3 years'
-    ],
+    description: 'Hello, we are seeking for new employees /nYou need to do this, this and that /nYou need to do this, this and that /n You need to do this, this and that /n You need to do this, this and that',
+    requirements: 'driver license /n driver license driver /n license driver /n license driver license /n driver license',
     id: '650c616edc31851e20cbd653',
     title: 'REact dev',
     date: '21.02.2023',
@@ -134,21 +82,8 @@ export const vacanciesList: IVacancy[] = [
     createdBy: 'Fima'
   },
   {
-    description: [
-      'Hello, we are seeking for new employees',
-      'You need to do this, this and that',
-      'You need to do this, this and that',
-      'You need to do this, this and that',
-      'You need to do this, this and that'
-    ],
-    requirements: [
-      'driver license',
-      'driver license',
-      'driver license',
-      'driver license',
-      'driver license',
-      'drive experience at least 3 years'
-    ],
+    description: 'Hello, we are seeking for new employees /nYou need to do this, this and that /nYou need to do this, this and that /n You need to do this, this and that /n You need to do this, this and that',
+    requirements: 'driver license /n driver license driver /n license driver /n license driver license /n driver license',
     id: '650c616edc31851e20cbd653',
     title: 'REact dev',
     date: '21.02.2023',

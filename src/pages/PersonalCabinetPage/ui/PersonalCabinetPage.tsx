@@ -25,7 +25,9 @@ export const PersonalCabinetPage: FC = ({ className }: PersonalCabinetPageProps)
                 <span>{t('posted')}: <b>{vacancy.date}</b></span>
               </div>
               <div className={cls.vacancyEditor}>
-                <Button>{t('edit')}</Button>
+                <Link to={`/edit-vacancy/${vacancy.id}`} state={{ vacancy }}>
+                  <Button>{t('edit')}</Button>
+                </Link>
                 <Button danger>{t('remove')}</Button>
               </div>
             </li>
