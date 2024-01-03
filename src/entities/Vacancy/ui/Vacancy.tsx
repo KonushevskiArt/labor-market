@@ -5,6 +5,7 @@ import { type IVacancy } from '../types'
 import { Divider, Button } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
+import { DollarOutlined, HomeOutlined, HourglassOutlined, PhoneOutlined, PieChartOutlined, UserOutlined } from '@ant-design/icons'
 
 interface VacancyProps {
   data: IVacancy
@@ -36,17 +37,18 @@ export const Vacancy: FC<VacancyProps> = ({ data }) => {
         <Link className='link' to={`/${id}`} state={{ data }}>{title}</Link>
       </h3>
       <Divider plain></Divider>
-      <p><i>{t('createdBy')}</i>: <b>{createdBy}</b></p>
-      <p><i>{t('busyness')}</i>: <b>{employment}</b> </p>
-      <p><i>{t('city')}</i>: <b>{location.city}</b></p>
-      <p><i>{t('salary')}</i>: <b>{salary.value}{salary.currency}</b></p>
+      <p className={cls.paragraph}><UserOutlined className='icon' /><i>{t('createdBy')}</i>: <b>{createdBy}</b></p>
+      <p className={cls.paragraph}><PieChartOutlined className='icon' /><i>{t('busyness')}</i>: <b>{employment}</b> </p>
+      <p className={cls.paragraph}><HomeOutlined className='icon' /><i>{t('city')}</i>: <b>{location.city}</b></p>
+      <p className={cls.paragraph}><DollarOutlined className='icon' /><i>{t('salary')}</i>: <b>{salary.value}{salary.currency}</b></p>
       <Divider plain></Divider>
-      <p>
+      <p className={cls.paragraph}>
+        <HourglassOutlined className='icon' />
         <i>{t('posted')}</i>: <b>{date}</b>
         {isShowContact
           ? <span className={cls.contact}>{contactNumber}</span>
           : <Button onClick={handleShowContact} type='primary' ghost className={cls.contactButton}>
-            {t('showContacts')}
+            <PhoneOutlined className='icon'/>{t('showContacts')}
           </Button>
         }
       </p>
