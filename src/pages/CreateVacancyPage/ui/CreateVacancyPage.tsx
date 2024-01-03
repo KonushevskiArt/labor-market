@@ -234,7 +234,7 @@ const CreateVacancyPage: FC = () => {
                 rules={{
                   maxLength: { value: 1000, message: t('maxLength1000') }
                 }}
-                render={({ field }) => <TextArea id='description' rows={14} cols={20} className='fs-md' {...field} />}
+                render={({ field }) => <TextArea id='description' rows={14} cols={50} className='fs-md' {...field} />}
               />
               {errors.description && <span className={cls.error}>{errors.description.message}</span>}
             </Form.Item>
@@ -248,7 +248,7 @@ const CreateVacancyPage: FC = () => {
                 rules={{
                   maxLength: { value: 1000, message: t('maxLength1000') }
                 }}
-                render={({ field }) => <TextArea id='requirements' rows={14} cols={20} className='fs-md' {...field} />}
+                render={({ field }) => <TextArea id='requirements' rows={14} cols={50} className='fs-md' {...field} />}
               />
               {errors.requirements && <span className={cls.error}>{errors.requirements.message}</span>}
             </Form.Item>
