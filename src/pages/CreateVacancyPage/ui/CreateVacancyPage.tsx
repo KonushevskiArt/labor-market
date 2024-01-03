@@ -2,6 +2,7 @@ import { type FC } from 'react'
 import cls from './CreateVacancyPage.module.scss'
 import { Container } from 'shared/ui/Container'
 import {
+  Button,
   Form,
   Input,
   InputNumber,
@@ -9,8 +10,9 @@ import {
 } from 'antd'
 import { useForm, Controller, type SubmitHandler } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
+import { PlusSquareOutlined } from '@ant-design/icons'
 
-interface IFormInput {
+export interface IFormInput {
   title: string
   employment: string
   workExperience: number
@@ -23,16 +25,6 @@ interface IFormInput {
   description: string
   requirements: string
 }
-
-const employmentMap = {
-  fourHoursPerDay: 'От 4 часов в день',
-  notFullDay: 'Неполный день',
-  inTheEvenings: 'По вечерам',
-  onWeekends: 'По выходным',
-  oneTimeTask: 'Разовое задание'
-}
-
-type TypeEmploymentMap = typeof employmentMap
 
 const { TextArea } = Input
 
@@ -55,6 +47,15 @@ const CreateVacancyPage: FC = () => {
 
   const { t } = useTranslation()
 
+  const employmentMap = {
+    fourHoursPerDay: t('fourHoursPerDay'),
+    notFullDay: t('notFullDay'),
+    inTheEvenings: t('InTheEvenings'),
+    onWeekends: t('onWeekends'),
+    oneTimeTask: t('OneTimeTask')
+  }
+  type TypeEmploymentMap = typeof employmentMap
+
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
     console.log(data)
   }
@@ -62,161 +63,208 @@ const CreateVacancyPage: FC = () => {
   return (
     <div className={cls.wrapper}>
       <Container>
-        <h2>Create new Vacancy</h2>
-      <form
-        className={cls.form}
-        onSubmit={handleSubmit(onSubmit)}
-      >
-        <Form.Item label="title" >
-          <Controller
-            name="title"
-            control={control}
-            rules={{
-              required: { value: true, message: t('requiredField') },
-              maxLength: { value: 140, message: t('maxLength140') }
-            }}
-            render={({ field }) => <Input className='fs-md' {...field} />}
-          />
-          {errors.title && <span className={cls.error}>{errors.title.message}</span>}
-        </Form.Item>
-        <Form.Item label="employment">
-          <Controller
-            name="employment"
-            control={control}
-            rules={{
-              required: { value: true, message: t('requiredField') }
-            }}
-            render={({ field }) => (
-              <Select className='fs-md' {...field}>
-                {Object.keys(employmentMap).map((key: keyof TypeEmploymentMap, i) => (
-                  <Select.Option key={i} value={key}>{employmentMap[key]}</Select.Option>
-                ))}
-              </Select>
-            )}
-          />
-          {errors.employment && <span className={cls.error}>{errors.employment.message}</span>}
-        </Form.Item>
+        <h2 className={cls.title}>{t('CreatingOfANewVacancy')}</h2>
+        <Form
+          className={cls.form}
+          onFinish={handleSubmit(onSubmit)}
+          layout="horizontal"
+        >
+          <div className={cls.inputsWrapper}>
+            <div className={cls.inputWrapper}>
+              <label className={cls.label} htmlFor="title">{t('title')}</label>
+              <Form.Item className={cls.formItem}>
+                <Controller
+                  name="title"
+                  control={control}
+                  rules={{
+                    required: { value: true, message: t('requiredField') },
+                    maxLength: { value: 140, message: t('maxLength140') }
+                  }}
+                  render={({ field }) => <Input id='title' className={cls.input} {...field} />}
+                />
+                {errors.title && <span className={cls.error}>{errors.title.message}</span>}
+              </Form.Item>
+            </div>
+            <div className={cls.inputWrapper}>
+              <label className={cls.label} htmlFor="employment">{t('employment')}</label>
+              <Form.Item className={cls.formItem}>
+                <Controller
+                  name="employment"
+                  control={control}
+                  rules={{
+                    required: { value: true, message: t('requiredField') }
+                  }}
+                  render={({ field }) => (
+                    <Select id='employment' className={cls.input} {...field}>
+                      {Object.keys(employmentMap).map((key: keyof TypeEmploymentMap, i) => (
+                        <Select.Option key={i} value={key}>{employmentMap[key]}</Select.Option>
+                      ))}
+                    </Select>
+                  )}
+                />
+                {errors.employment && <span className={cls.error}>{errors.employment.message}</span>}
+              </Form.Item>
+            </div>
 
-        <Form.Item label="work experience ">
-          <Controller
-              name="workExperience"
-              control={control}
-              rules={{
-                required: { value: true, message: t('requiredField') }
-              }}
-              render={({ field }) => <InputNumber addonAfter="years" min={0} max={80} className='fs-md' {...field} />}
-            />
-            {errors.workExperience && <span className={cls.error}>{errors.workExperience.message}</span>}
-        </Form.Item>
+            <div className={cls.inputWrapper}>
+              <label className={cls.label} htmlFor="workExperience">{t('workExperience')}</label>
+              <Form.Item className={cls.formItem}>
+                <Controller
+                    name="workExperience"
+                    control={control}
+                    rules={{
+                      required: { value: true, message: t('requiredField') }
+                    }}
+                    render={({ field }) => (
+                      <InputNumber id='workExperience' className={cls.input} addonAfter={t('years')} min={0} max={80} {...field} />
+                    )}
+                  />
+                  {errors.workExperience && <span className={cls.error}>{errors.workExperience.message}</span>}
+              </Form.Item>
+            </div>
 
-        <Form.Item label="contactNumber" >
-          <Controller
-            name="contactNumber"
-            control={control}
-            rules={{
-              required: { value: true, message: t('requiredField') },
-              maxLength: { value: 140, message: t('maxLength140') },
-              pattern: { value: /^(\+)?((\d{2,3}) ?\d|\d)(([ -]?\d)|( ?(\d{2,3}) ?)){5,12}\d$/gm, message: t('mobileNumberValidErrorMessage') }
-            }}
-            render={({ field }) => <Input type='tel' className='fs-md' {...field} />}
-          />
-          {errors.contactNumber && <span className={cls.error}>{errors.contactNumber.message}</span>}
-        </Form.Item>
+            <div className={cls.inputWrapper}>
+              <label className={cls.label} htmlFor="contactNumber">{t('contactNumber')}</label>
+              <Form.Item className={cls.formItem}>
+                <Controller
+                  name="contactNumber"
+                  control={control}
+                  rules={{
+                    required: { value: true, message: t('requiredField') },
+                    maxLength: { value: 140, message: t('maxLength140') },
+                    pattern: { value: /^(\+)?((\d{2,3}) ?\d|\d)(([ -]?\d)|( ?(\d{2,3}) ?)){5,12}\d$/gm, message: t('mobileNumberValidErrorMessage') }
+                  }}
+                  render={({ field }) => (
+                    <Input id='contactNumber' className={cls.input} type='tel' {...field} />
+                  )}
+                />
+                {errors.contactNumber && <span className={cls.error}>{errors.contactNumber.message}</span>}
+              </Form.Item>
+            </div>
 
-        <div>
-          <Form.Item label="city" >
-            <Controller
-              name="city"
-              control={control}
-              rules={{
-                maxLength: { value: 45, message: t('maxLength') }
-              }}
-              render={({ field }) => <Input className='fs-md' {...field} />}
-            />
-            {errors.city && <span className={cls.error}>{errors.city.message}</span>}
-          </Form.Item>
-          <Form.Item label="street" >
-            <Controller
-              name="street"
-              control={control}
-              rules={{
-                maxLength: { value: 45, message: t('maxLength') }
-              }}
-              render={({ field }) => <Input className='fs-md' {...field} />}
-            />
-            {errors.street && <span className={cls.error}>{errors.street.message}</span>}
-          </Form.Item>
+            <div className={cls.locationWrapper}>
+              <span className={cls.locationLabel}>{t('location')}</span>
+              <div className={cls.inputWrapper}>
+                <label className={cls.label} htmlFor="city">{t('city')}</label>
+                <Form.Item className={cls.formItem}>
+                  <Controller
+                    name="city"
+                    control={control}
+                    rules={{
+                      maxLength: { value: 45, message: t('maxLength') }
+                    }}
+                    render={({ field }) => <Input id='city' className={cls.input} {...field} />}
+                  />
+                  {errors.city && <span className={cls.error}>{errors.city.message}</span>}
+                </Form.Item>
+              </div>
+              <div className={cls.inputWrapper}>
+                <label className={cls.label} htmlFor="street">{t('street')}</label>
+                <Form.Item className={cls.formItem}>
+                  <Controller
+                    name="street"
+                    control={control}
+                    rules={{
+                      maxLength: { value: 45, message: t('maxLength') }
+                    }}
+                    render={({ field }) => <Input id='street' className={cls.input} {...field} />}
+                  />
+                  {errors.street && <span className={cls.error}>{errors.street.message}</span>}
+                </Form.Item>
+              </div>
 
-          <Form.Item label="house" >
-            <Controller
-              name="house"
-              control={control}
-              rules={{
-                maxLength: { value: 45, message: t('maxLength') }
-              }}
-              render={({ field }) => <Input className='fs-md' {...field} />}
-            />
-            {errors.house && <span className={cls.error}>{errors.house.message}</span>}
-          </Form.Item>
+              <div className={cls.inputWrapper}>
+                <label className={cls.label} htmlFor="house">{t('house')}</label>
+                <Form.Item className={cls.formItem}>
+                  <Controller
+                    name="house"
+                    control={control}
+                    rules={{
+                      maxLength: { value: 45, message: t('maxLength') }
+                    }}
+                    render={({ field }) => <Input id='house' className={cls.input} {...field} />}
+                  />
+                  {errors.house && <span className={cls.error}>{errors.house.message}</span>}
+                </Form.Item>
+              </div>
 
-        </div>
+            </div>
 
-        <div>
-          <Form.Item label="currency" >
-            <Controller
-              name="currency"
-              control={control}
-              rules={{
-                maxLength: { value: 45, message: t('maxLength') }
-              }}
-              render={({ field }) => <Input className='fs-md' {...field} />}
-            />
-            {errors.currency && <span className={cls.error}>{errors.currency.message}</span>}
-          </Form.Item>
-          <Form.Item label="currencyValue" >
-            <Controller
-              name="currencyValue"
-              control={control}
-              rules={{
-                maxLength: { value: 45, message: t('maxLength') }
-              }}
-              render={({ field }) => <Input className='fs-md' {...field} />}
-            />
-            {errors.currencyValue && <span className={cls.error}>{errors.currencyValue.message}</span>}
-          </Form.Item>
+            <div className={cls.salaryWrapper}>
+              <span className={cls.salaryLabel}>{t('salary')}</span>
+              <div className={cls.inputWrapper}>
+                <label className={cls.label} htmlFor="currency">{t('currency')}</label>
+                <Form.Item className={cls.formItem}>
+                  <Controller
+                    name="currency"
+                    control={control}
+                    rules={{
+                      maxLength: { value: 45, message: t('maxLength') }
+                    }}
+                    render={({ field }) => <Input id='currency' className={cls.input} {...field} />}
+                  />
+                  {errors.currency && <span className={cls.error}>{errors.currency.message}</span>}
+                </Form.Item>
+              </div>
+              <div className={cls.inputWrapper}>
+                <label className={cls.label} htmlFor="currencyValue">{t('value')}</label>
+                <Form.Item className={cls.formItem}>
+                  <Controller
+                    name="currencyValue"
+                    control={control}
+                    rules={{
+                      maxLength: { value: 45, message: t('maxLength') }
+                    }}
+                    render={({ field }) => <Input id='currencyValue' className={cls.input} {...field} />}
+                  />
+                  {errors.currencyValue && <span className={cls.error}>{errors.currencyValue.message}</span>}
+                </Form.Item>
+              </div>
+            </div>
 
-        </div>
+          </div>
 
-        <div>
-          <Form.Item label="description" >
-            <p>Если вы хотите сделать перевод строки то используйте /n</p>
-            <Controller
-              name="description"
-              control={control}
-              rules={{
-                maxLength: { value: 1000, message: t('maxLength1000') }
-              }}
-              render={({ field }) => <TextArea rows={8} className='fs-md' {...field} />}
-            />
-            {errors.description && <span className={cls.error}>{errors.description.message}</span>}
-          </Form.Item>
+          <div className={cls.textAreaWrapper}>
+            <Form.Item >
+              <label className={cls.label} htmlFor="description">{t('description')}</label>
+              <p>{t('lineFeedInTextArea')}</p>
+              <Controller
+                name="description"
+                control={control}
+                rules={{
+                  maxLength: { value: 1000, message: t('maxLength1000') }
+                }}
+                render={({ field }) => <TextArea id='description' rows={14} cols={20} className='fs-md' {...field} />}
+              />
+              {errors.description && <span className={cls.error}>{errors.description.message}</span>}
+            </Form.Item>
 
-          <Form.Item label="requirements" >
-            <p>Если вы хотите сделать перевод строки то используйте /n</p>
-            <Controller
-              name="requirements"
-              control={control}
-              rules={{
-                maxLength: { value: 1000, message: t('maxLength1000') }
-              }}
-              render={({ field }) => <TextArea rows={8} className='fs-md' {...field} />}
-            />
-            {errors.requirements && <span className={cls.error}>{errors.requirements.message}</span>}
-          </Form.Item>
-        </div>
+            <Form.Item>
+              <label className={cls.label} htmlFor="requirements">{t('requirements')}</label>
+              <p>{t('lineFeedInTextArea')}</p>
+              <Controller
+                name="requirements"
+                control={control}
+                rules={{
+                  maxLength: { value: 1000, message: t('maxLength1000') }
+                }}
+                render={({ field }) => <TextArea id='requirements' rows={14} cols={20} className='fs-md' {...field} />}
+              />
+              {errors.requirements && <span className={cls.error}>{errors.requirements.message}</span>}
+            </Form.Item>
+            <Button
+              // disabled={Boolean(isError) || isLoading}
+              // loading={isLoading}
+              htmlType="submit"
+              size='large'
+              type='primary'
+              icon={<PlusSquareOutlined />}
+            >
+              {t('createVacancy')}
+            </Button>
+          </div>
 
-        <button type='submit'>submit</button>
-      </form>
+        </Form>
 
       </Container>
     </div>
@@ -224,28 +272,3 @@ const CreateVacancyPage: FC = () => {
 }
 
 export default CreateVacancyPage
-
-export interface ILocation {
-  city: string
-  street: string
-  house: string
-}
-
-export interface ISalary {
-  value: number
-  currency: string
-}
-
-export interface IVacancy {
-  title: string
-  employment: string
-  workExperience: number
-  contactNumber: string
-  location: ILocation
-  salary: ISalary
-  description: string[]
-  requirements: string[]
-  createdBy: string
-  date: string
-  id: string
-}
