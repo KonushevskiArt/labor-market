@@ -3,7 +3,7 @@ import { type FC } from 'react'
 import { useAuth } from 'shared/hooks/useAuth'
 import { LogoutOutlined } from '@ant-design/icons'
 import { useTypedDispatch } from 'app/store'
-import { removeUser } from 'app/store/slices/userSlice'
+import { removeUser } from 'entities/User/model/userSlice'
 
 export const Logout: FC = () => {
   const { email } = useAuth()

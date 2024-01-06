@@ -7,7 +7,7 @@ import { LoginOutlined } from '@ant-design/icons'
 import { getAuth, signInWithEmailAndPassword, type User } from 'firebase/auth'
 import toast from 'react-hot-toast'
 import { useTypedDispatch } from 'app/store'
-import { setUser } from 'app/store/slices/userSlice'
+import { setUser } from 'entities/User/model/userSlice'
 
 interface IExpandedUser extends User {
   accessToken: string
