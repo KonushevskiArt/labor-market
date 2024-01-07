@@ -3,8 +3,6 @@ import cls from './SearchBar.module.scss'
 import { type FC } from 'react'
 import { Input } from 'antd'
 import { useTranslation } from 'react-i18next'
-import { useTypedDispatch } from 'app/store'
-import { fetchVacancies } from 'entities/Vacancy/model/vacancySlice'
 
 const { Search } = Input
 
@@ -14,15 +12,8 @@ interface SearchBarProps {
 
 export const SearchBar: FC = ({ className }: SearchBarProps) => {
   const { t } = useTranslation()
-  const dispatch = useTypedDispatch()
   const onSearch = (value: string): void => {
-    dispatch(fetchVacancies())
-      .then(() => {
-        console.log()
-      })
-      .catch((err) => {
-        console.log(err)
-      })
+    console.log('search')
   }
 
   return (
