@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { type IVacancy } from '../types'
+import { vacancyApi } from '../services/vacancyApi'
 
 export type FetchStatus = 'loading' | 'error' | 'success' | 'idle'
 
@@ -21,18 +22,15 @@ const initialState: VacancyState = {
 }
 
 export const fetchVacancies = createAsyncThunk('vacancies/fetchVacancies', async () => {
-  // const response = await client.get('/fakeApi/posts')
-  // return response.data
-  // write api call
+  // const response = await vacancyApi.getAllVacancies()
+  // console.log(response)
   // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
   const mock: IVacancy[] = {} as IVacancy[]
   return mock
 })
 
-export const fetchAddVacancy = createAsyncThunk('vacancies/fetchAddVacancy', async () => {
-  // const response = await client.get('/fakeApi/posts')
-  // return response.data
-  // write api call
+export const fetchAddVacancy = createAsyncThunk('vacancies/fetchAddVacancy', async (vacancy: IVacancy) => {
+  await vacancyApi.addVacancy(vacancy)
   // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
   const mock: IVacancy = {} as IVacancy
   return mock

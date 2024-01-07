@@ -5,6 +5,7 @@ import { userData } from './mock'
 import { useTranslation } from 'react-i18next'
 import { Button } from 'antd'
 import { Link } from 'react-router-dom'
+import { useRemoveVacancyMutation } from 'entities/Vacancy/api'
 
 interface PersonalCabinetPageProps {
   className?: string
@@ -12,6 +13,15 @@ interface PersonalCabinetPageProps {
 
 export const PersonalCabinetPage: FC = ({ className }: PersonalCabinetPageProps) => {
   const { t } = useTranslation()
+  const [removeVacancy] = useRemoveVacancyMutation()
+
+  const handleDeleteVacancy = (id: string): void => {
+    if (window.confirm('Are you sure to delete ?')) {
+      removeVacancy(id)
+        .then((data) => { console.log(data) })
+        .catch((err) => { console.log(err) })
+    }
+  }
 
   return (
     <Container>
@@ -28,7 +38,7 @@ export const PersonalCabinetPage: FC = ({ className }: PersonalCabinetPageProps)
                 <Link to={`/edit-vacancy/${vacancy.id}`} state={{ vacancy }}>
                   <Button>{t('edit')}</Button>
                 </Link>
-                <Button danger>{t('remove')}</Button>
+                <Button onClick={() => { handleDeleteVacancy(vacancy.id) }} danger>{t('remove')}</Button>
               </div>
             </li>
           ))}

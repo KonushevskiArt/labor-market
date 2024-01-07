@@ -22,3 +22,16 @@ export interface IVacancy {
   createdBy: string
   id: string
 }
+
+export interface INewVacancy {
+  title: string
+  date: string
+  employment: string
+  description: string
+  workExperience: number
+  requirements: string
+  contactNumber: string
+  location: ILocation
+  salary: ISalary
+  createdBy: string
+}

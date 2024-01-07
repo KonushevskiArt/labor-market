@@ -11,6 +11,9 @@ import {
 import { useForm, Controller, type SubmitHandler } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { PlusSquareOutlined } from '@ant-design/icons'
+import { useAddVacancyMutation } from 'entities/Vacancy/api'
+import { useAuth } from 'shared/hooks/useAuth'
+import { convertFormDataToNewVacancy } from './helpers'
 
 export interface IFormInput {
   title: string
@@ -46,6 +49,8 @@ const CreateVacancyPage: FC = () => {
   })
 
   const { t } = useTranslation()
+  const { uid } = useAuth()
+  const [addVacancy] = useAddVacancyMutation()
 
   const employmentMap = {
     fourHoursPerDay: t('fourHoursPerDay'),
@@ -56,8 +61,11 @@ const CreateVacancyPage: FC = () => {
   }
   type TypeEmploymentMap = typeof employmentMap
 
-  const onSubmit: SubmitHandler<IFormInput> = (data) => {
-    console.log(data)
+  const onSubmit: SubmitHandler<IFormInput> = async (data) => {
+    const newVacancy = convertFormDataToNewVacancy(data, uid)
+
+    await addVacancy(newVacancy)
+    //  block button add loading to button
   }
 
   return (
