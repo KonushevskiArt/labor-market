@@ -1,7 +1,7 @@
-import { type INewVacancy } from 'entities/Vacancy/types'
+import { type ICreatedBy, type INewVacancy } from 'entities/Vacancy/types'
 import { type IFormInput } from './CreateVacancyPage'
 
-export const convertFormDataToNewVacancy = (data: IFormInput, uid: string): INewVacancy => {
+export const convertFormDataToNewVacancy = (data: IFormInput, createdBy: ICreatedBy): INewVacancy => {
   const {
     title,
     employment,
@@ -33,7 +33,7 @@ export const convertFormDataToNewVacancy = (data: IFormInput, uid: string): INew
     description,
     requirements,
     date: new Date().toString(),
-    createdBy: uid
+    createdBy
   }
 
   return vacancy

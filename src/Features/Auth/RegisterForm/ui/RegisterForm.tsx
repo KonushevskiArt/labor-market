@@ -8,9 +8,12 @@ import { getAuth, createUserWithEmailAndPassword, type User } from 'firebase/aut
 import toast from 'react-hot-toast'
 import { useTypedDispatch } from 'app/store'
 import { setUser } from 'entities/User/model/userSlice'
+import { db } from 'app/firebase'
+import { doc, setDoc } from 'firebase/firestore'
 
 interface Inputs {
   email: string
+  userName: string
   password: string
   repeatPassword: string
 }
@@ -41,22 +44,26 @@ export const RegisterForm: FC<RegisterFormProps> = ({ hideModal, setRegisterForm
       setLoading(true)
 
       try {
-        const { email, password } = data
+        const { email, password, userName } = data
         const auth = getAuth()
         const { user } = await createUserWithEmailAndPassword(auth, email, password)
         const expendedUser = user as IExpandedUser
         toast.success('successfully registered')
 
+        await setDoc(doc(db, 'users', user.uid), { userName })
+
         dispatch(setUser({
           email: expendedUser.email,
           uid: expendedUser.uid,
-          token: expendedUser.accessToken
+          token: expendedUser.accessToken,
+          userName
         }))
         reset()
         hideModal()
       } catch (error) {
         const messageError = error.message as string
         toast.error(messageError)
+        console.log(error)
       } finally {
         setLoading(false)
       }
@@ -82,6 +89,20 @@ export const RegisterForm: FC<RegisterFormProps> = ({ hideModal, setRegisterForm
           })}
         />
         {errors.email && <span className={cls.error}>{errors.email.message}</span>}
+      </label>
+
+      <label className={cls.label}>
+        <span className={cls.labelTitle}>{t('userName')}</span>
+        <input
+          className={cls.input}
+          defaultValue=""
+          {...register('userName', {
+            required: { value: true, message: t('requiredField') },
+            minLength: { value: 6, message: t('minLength') },
+            maxLength: { value: 45, message: t('maxLength') }
+          })}
+        />
+        {errors.userName && <span className={cls.error}>{errors.userName.message}</span>}
       </label>
 
       <label className={cls.label}>

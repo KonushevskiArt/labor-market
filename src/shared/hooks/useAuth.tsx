@@ -5,13 +5,15 @@ export interface IAuth {
   email: string
   token: string
   uid: string
+  userName: string
 }
 
 export const useAuth = (): IAuth => {
-  const { email, token, uid } = useTypedSelector(state => state.user)
+  const { email, token, uid, userName } = useTypedSelector(state => state.user)
 
   return {
     isAuth: Boolean(email),
+    userName,
     email,
     token,
     uid

@@ -59,5 +59,6 @@
   "lineFeedInTextArea": "If you want to make a line feed, then use /n",
   "CreatingOfANewVacancy": "Creating a new vacancy",
   "editingVacancy": "Editing a vacancy",
-  "editVacancy": "Edit the vacancy"
+  "editVacancy": "Edit the vacancy",
+  "userName": "User name"
 }

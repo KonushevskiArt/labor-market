@@ -4,10 +4,12 @@ import { useTranslation } from 'react-i18next'
 import { useForm, type SubmitHandler } from 'react-hook-form'
 import { Button } from 'antd'
 import { LoginOutlined } from '@ant-design/icons'
-import { getAuth, signInWithEmailAndPassword, type User } from 'firebase/auth'
+import { type User, getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 import toast from 'react-hot-toast'
 import { useTypedDispatch } from 'app/store'
 import { setUser } from 'entities/User/model/userSlice'
+import { db } from 'app/firebase'
+import { doc, getDoc } from 'firebase/firestore'
 
 interface IExpandedUser extends User {
   accessToken: string
@@ -33,31 +35,35 @@ export const LoginForm: FC<LoginFormProps> = ({ hideModal, setRegisterForm }) =>
   const [isLoading, setLoading] = useState(false)
   const dispatch = useTypedDispatch()
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
-    setLoading(true)
-    const auth = getAuth()
-    const { email, password } = data
-    signInWithEmailAndPassword(auth, email, password)
-      .then(({ user }) => {
-        const expendedUser = user as IExpandedUser
-        console.log(expendedUser)
-        toast.success('successuffy logged in')
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    try {
+      setLoading(true)
+      const auth = getAuth()
+      const { email, password } = data
+      const user = await signInWithEmailAndPassword(auth, email, password)
 
-        dispatch(setUser({
-          email: expendedUser.email,
-          uid: expendedUser.uid,
-          token: expendedUser.accessToken
-        }))
-        reset()
-        hideModal()
-      })
-      .catch(error => {
-        const messageError = error.message as string
-        toast.error(messageError)
-      })
-      .finally(() => {
-        setLoading(false)
-      })
+      const expendedUser = user.user as IExpandedUser
+      console.log(expendedUser)
+      toast.success('successuffy logged in')
+
+      const docRef = doc(db, 'users', expendedUser.uid)
+      const snapshot = await getDoc(docRef)
+      console.log('user-------------', snapshot.data().userName)
+      dispatch(setUser({
+        email: expendedUser.email,
+        uid: expendedUser.uid,
+        token: expendedUser.accessToken,
+        userName: snapshot.data().userName
+      }))
+      reset()
+      hideModal()
+    } catch (error) {
+      const messageError = error.message as string
+      toast.error(messageError)
+      console.log(error)
+    } finally {
+      setLoading(false)
+    }
   }
   const { t } = useTranslation()
 

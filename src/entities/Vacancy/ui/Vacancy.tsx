@@ -37,7 +37,7 @@ export const Vacancy: FC<VacancyProps> = ({ data }) => {
         <Link className='link' to={`/${id}`} state={{ data }}>{title}</Link>
       </h3>
       <Divider plain></Divider>
-      <p className={cls.paragraph}><UserOutlined className='icon' /><i>{t('createdBy')}</i>: <b>{createdBy}</b></p>
+      <p className={cls.paragraph}><UserOutlined className='icon' /><i>{t('createdBy')}</i>: <b>{createdBy.userName}</b></p>
       <p className={cls.paragraph}><PieChartOutlined className='icon' /><i>{t('busyness')}</i>: <b>{employment}</b> </p>
       <p className={cls.paragraph}><HomeOutlined className='icon' /><i>{t('city')}</i>: <b>{location.city}</b></p>
       <p className={cls.paragraph}><DollarOutlined className='icon' /><i>{t('salary')}</i>: <b>{salary.value}{salary.currency}</b></p>

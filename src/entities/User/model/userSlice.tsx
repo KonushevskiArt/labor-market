@@ -5,12 +5,14 @@ interface IState {
   email: string | null
   token: string | null
   uid: string | null
+  userName: string
 }
 
 const initialState: IState = {
   email: null,
   token: null,
-  uid: null
+  uid: null,
+  userName: 'Vasa'
 }
 
 const userSlice = createSlice({
@@ -21,11 +23,13 @@ const userSlice = createSlice({
       state.email = action.payload.email
       state.token = action.payload.token
       state.uid = action.payload.uid
+      state.userName = action.payload.userName
     },
     removeUser (state) {
       state.email = null
       state.token = null
       state.uid = null
+      state.userName = null
     }
   }
 })

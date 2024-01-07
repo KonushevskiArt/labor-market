@@ -49,7 +49,7 @@ const CreateVacancyPage: FC = () => {
   })
 
   const { t } = useTranslation()
-  const { uid } = useAuth()
+  const { uid, userName } = useAuth()
   const [addVacancy] = useAddVacancyMutation()
 
   const employmentMap = {
@@ -62,7 +62,8 @@ const CreateVacancyPage: FC = () => {
   type TypeEmploymentMap = typeof employmentMap
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-    const newVacancy = convertFormDataToNewVacancy(data, uid)
+    const createdBy = { userName, uid }
+    const newVacancy = convertFormDataToNewVacancy(data, createdBy)
 
     await addVacancy(newVacancy)
     //  block button add loading to button

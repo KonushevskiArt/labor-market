@@ -9,6 +9,11 @@ export interface ISalary {
   currency: string
 }
 
+export interface ICreatedBy {
+  uid: string
+  userName: string
+}
+
 export interface IVacancy {
   title: string
   date: string
@@ -19,7 +24,7 @@ export interface IVacancy {
   contactNumber: string
   location: ILocation
   salary: ISalary
-  createdBy: string
+  createdBy: ICreatedBy
   id: string
 }
 
@@ -33,5 +38,5 @@ export interface INewVacancy {
   contactNumber: string
   location: ILocation
   salary: ISalary
-  createdBy: string
+  createdBy: ICreatedBy
 }

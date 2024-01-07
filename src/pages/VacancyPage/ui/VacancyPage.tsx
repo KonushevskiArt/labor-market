@@ -36,7 +36,7 @@ const VacancyPage: FC = ({ className }: VacancyPageProps) => {
       <div className={classNames(cls.VacancyPage, {}, [className])}>
         <h3 className={cls.title}>{title}</h3>
         <Divider plain></Divider>
-        <p><i>{t('createdBy')}</i>: <b>{createdBy}</b></p>
+        <p><i>{t('createdBy')}</i>: <b>{createdBy.userName}</b></p>
         <p><i>{t('busyness')}</i>: <b>{employment}</b> </p>
         <p><i>{t('city')}</i>: <b>{location.city}</b></p>
         <p><i>{t('salary')}</i>: <b>{salary.value}{salary.currency}</b></p>
