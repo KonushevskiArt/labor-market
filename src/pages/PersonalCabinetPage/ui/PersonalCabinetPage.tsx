@@ -1,11 +1,15 @@
 import cls from './PersonalCabinetPage.module.scss'
 import { type FC } from 'react'
 import { Container } from 'shared/ui/Container'
-import { userData } from './mock'
 import { useTranslation } from 'react-i18next'
 import { Button } from 'antd'
 import { Link } from 'react-router-dom'
-import { useRemoveVacancyMutation } from 'entities/Vacancy/api'
+import { useFetchVacanciesByUidQuery, useRemoveVacancyMutation } from 'entities/Vacancy/api'
+import { useAuth } from 'shared/hooks/useAuth'
+import PageSkeleton from 'widgets/PageSkeleton'
+import toast from 'react-hot-toast'
+import { RouterPaths } from 'shared/RouterPaths'
+import { DeleteOutlined, EditOutlined, LinkOutlined, PlusSquareOutlined } from '@ant-design/icons'
 
 interface PersonalCabinetPageProps {
   className?: string
@@ -13,39 +17,63 @@ interface PersonalCabinetPageProps {
 
 export const PersonalCabinetPage: FC = ({ className }: PersonalCabinetPageProps) => {
   const { t } = useTranslation()
+  const { uid, isAuth } = useAuth()
+  const { data, isLoading, isError, error } = useFetchVacanciesByUidQuery(uid)
+
+  if (isError) {
+    const messageError = error as string
+    toast.error(messageError)
+    console.log(error)
+  }
+
   const [removeVacancy] = useRemoveVacancyMutation()
 
   const handleDeleteVacancy = (id: string): void => {
     if (window.confirm('Are you sure to delete ?')) {
       removeVacancy(id)
-        .then((data) => { console.log(data) })
+        .then((data) => {
+          console.log(data)
+          toast.success('vacancy removed successfully')
+        })
         .catch((err) => { console.log(err) })
     }
+  }
+
+  const options: Intl.DateTimeFormatOptions = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
   }
 
   return (
     <Container>
       <div className={cls.page}>
         <h2 className={cls.title}>{t('personalCabinet')}</h2>
-        <ol className={cls.vacanciesList}>
-          {userData.vacancies.map(vacancy => (
-            <li className={cls.vacancy} key={vacancy.id}>
-              <div className={cls.vacancyInfo}>
-                <span>{t('title')}: <b>{vacancy.title}</b></span>
-                <span>{t('posted')}: <b>{vacancy.date}</b></span>
-              </div>
-              <div className={cls.vacancyEditor}>
-                <Link to={`/edit-vacancy/${vacancy.id}`} state={{ vacancy }}>
-                  <Button>{t('edit')}</Button>
-                </Link>
-                <Button onClick={() => { handleDeleteVacancy(vacancy.id) }} danger>{t('remove')}</Button>
-              </div>
-            </li>
-          ))}
-        </ol>
-        <Link to='/create-vacancy'>
-          <Button type='primary'>{t('createNewVacancy')}</Button>
-        </Link>
+        {isLoading && <PageSkeleton />}
+        {isAuth &&
+          <>
+            <h3 className={cls.listTitle}>{t('listOfYourVacancies')}</h3>
+            <ol className={cls.vacanciesList}>
+              {data?.map(vacancy => (
+                <li className={cls.vacancy} key={vacancy.id}>
+                  <div className={cls.vacancyInfo}>
+                    <Link className='link' to={RouterPaths.vacancyPage(vacancy.id)} state={{ data: vacancy }}><LinkOutlined /> {vacancy.title}</Link>
+                    <span>{t('posted')}: <b>{new Date(vacancy.date).toLocaleString(t('locales'), options)}</b></span>
+                  </div>
+                  <div className={cls.vacancyEditor}>
+                    <Link to={`/edit-vacancy/${vacancy.id}`} state={{ vacancy }}>
+                      <Button><EditOutlined /> {t('edit')}</Button>
+                    </Link>
+                    <Button onClick={() => { handleDeleteVacancy(vacancy.id) }} danger><DeleteOutlined /> {t('remove')}</Button>
+                  </div>
+                </li>
+              ))}
+            </ol>
+            <Link to='/create-vacancy'>
+              <Button type='primary'><PlusSquareOutlined />{t('createNewVacancy')}</Button>
+            </Link>
+          </>}
+          {!isAuth && <p>{t('YouNeedToLogInOrRegister')}</p>}
       </div>
     </Container>
   )

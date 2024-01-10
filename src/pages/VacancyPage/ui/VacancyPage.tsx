@@ -13,6 +13,7 @@ interface VacancyPageProps {
 
 const VacancyPage: FC = ({ className }: VacancyPageProps) => {
   const { data } = useLocation().state as { data: IVacancy }
+
   const {
     title,
     date,
@@ -28,8 +29,19 @@ const VacancyPage: FC = ({ className }: VacancyPageProps) => {
 
   const convertStringToArrayBySlashN = (str: string): string[] => {
     const res = str.split('/n')
+    if (res.length === 1 && res[0].trim() === '') {
+      return []
+    }
     return res
   }
+
+  const options: Intl.DateTimeFormatOptions = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  }
+
+  const viewDate = new Date(date).toLocaleString(t('locales'), options)
 
   return (
     <Container>
@@ -45,18 +57,18 @@ const VacancyPage: FC = ({ className }: VacancyPageProps) => {
         <Divider plain></Divider>
         <ol className={cls.description}>
           <span className={cls.descriptionTitle}><b className='fs-lg'>{t('description')}</b></span>
-          {convertStringToArrayBySlashN(description).map((dscr, i) => (
-            <li key={i}>{dscr}</li>
+          {convertStringToArrayBySlashN(description).map((description, i) => (
+            <li key={i}>{description}</li>
           ))}
         </ol>
         <ol className={cls.requirements}>
           <span className={cls.requirementsTitle}><b className='fs-lg'>{t('requirements')}</b></span>
-          {convertStringToArrayBySlashN(requirements).map((requ, i) => (
-            <li key={i}>{requ}</li>
+          {convertStringToArrayBySlashN(requirements).map((requirements, i) => (
+            <li key={i}>{requirements}</li>
           ))}
         </ol>
         <p>
-          <i>{t('posted')}</i>: <b>{date}</b>
+          <i>{t('posted')}</i>: <b>{viewDate}</b>
         </p>
       </div>
     </Container>

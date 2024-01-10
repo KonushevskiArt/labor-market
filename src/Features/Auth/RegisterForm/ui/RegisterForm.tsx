@@ -50,7 +50,7 @@ export const RegisterForm: FC<RegisterFormProps> = ({ hideModal, setRegisterForm
         const expendedUser = user as IExpandedUser
         toast.success('successfully registered')
 
-        await setDoc(doc(db, 'users', user.uid), { userName })
+        await setDoc(doc(db, 'users', user.uid), { userName, email })
 
         dispatch(setUser({
           email: expendedUser.email,

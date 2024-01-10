@@ -11,8 +11,13 @@ import {
 import { useForm, Controller, type SubmitHandler } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { EditOutlined } from '@ant-design/icons'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { type IVacancy } from 'entities/Vacancy/types'
+import { useUpdateVacancyMutation } from 'entities/Vacancy/api'
+import { convertFormDataToNewVacancy } from 'shared/helpers/convertFormDataToNewVacancy'
+import { useAuth } from 'shared/hooks/useAuth'
+import toast from 'react-hot-toast'
+import { RouterPaths } from 'shared/RouterPaths'
 
 export interface IFormInput {
   title: string
@@ -31,21 +36,23 @@ export interface IFormInput {
 const { TextArea } = Input
 
 const EditVacancyPage: FC = () => {
+  const navigate = useNavigate()
+  const { uid, userName } = useAuth()
   const { vacancy } = useLocation().state as { vacancy: IVacancy }
   const {
     title,
-    // date,
     employment,
     description,
     workExperience,
     requirements,
     contactNumber,
     location,
-    salary
-    // createdBy
+    salary,
+    id
   } = vacancy
+  const [updateVacancy, { isLoading }] = useUpdateVacancyMutation()
 
-  const { control, handleSubmit, formState: { errors } } = useForm({
+  const { control, handleSubmit, formState: { errors }, reset } = useForm({
     defaultValues: {
       title,
       employment,
@@ -72,8 +79,18 @@ const EditVacancyPage: FC = () => {
   }
   type TypeEmploymentMap = typeof employmentMap
 
-  const onSubmit: SubmitHandler<IFormInput> = (data) => {
-    console.log(data)
+  const onSubmit: SubmitHandler<IFormInput> = async (data) => {
+    try {
+      const createdBy = { userName, uid }
+      const vacancy = convertFormDataToNewVacancy(data, createdBy)
+      await updateVacancy({ id, vacancy })
+      reset()
+      navigate(RouterPaths.personalCabinetPage)
+    } catch (error) {
+      const messageError = error as string
+      toast.error(messageError)
+      console.log(error)
+    }
   }
 
   return (
@@ -269,8 +286,8 @@ const EditVacancyPage: FC = () => {
               {errors.requirements && <span className={cls.error}>{errors.requirements.message}</span>}
             </Form.Item>
             <Button
-              // disabled={Boolean(isError) || isLoading}
-              // loading={isLoading}
+              disabled={Boolean(isLoading)}
+              loading={Boolean(isLoading)}
               htmlType="submit"
               size='large'
               type='primary'

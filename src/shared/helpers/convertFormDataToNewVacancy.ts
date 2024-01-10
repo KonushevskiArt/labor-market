@@ -1,5 +1,5 @@
 import { type ICreatedBy, type INewVacancy } from 'entities/Vacancy/types'
-import { type IFormInput } from './CreateVacancyPage'
+import { type IFormInput } from 'shared/types/IFormInput'
 
 export const convertFormDataToNewVacancy = (data: IFormInput, createdBy: ICreatedBy): INewVacancy => {
   const {

@@ -13,26 +13,14 @@ import { useTranslation } from 'react-i18next'
 import { PlusSquareOutlined } from '@ant-design/icons'
 import { useAddVacancyMutation } from 'entities/Vacancy/api'
 import { useAuth } from 'shared/hooks/useAuth'
-import { convertFormDataToNewVacancy } from './helpers'
-
-export interface IFormInput {
-  title: string
-  employment: string
-  workExperience: number
-  contactNumber: string
-  city: string
-  street: string
-  house: string
-  currencyValue: number
-  currency: string
-  description: string
-  requirements: string
-}
+import toast from 'react-hot-toast'
+import { type IFormInput } from 'shared/types/IFormInput'
+import { convertFormDataToNewVacancy } from 'shared/helpers/convertFormDataToNewVacancy'
 
 const { TextArea } = Input
 
 const CreateVacancyPage: FC = () => {
-  const { control, handleSubmit, formState: { errors } } = useForm({
+  const { control, handleSubmit, formState: { errors }, reset } = useForm({
     defaultValues: {
       title: '',
       employment: '',
@@ -48,9 +36,11 @@ const CreateVacancyPage: FC = () => {
     }
   })
 
+  console.log(reset)
+
   const { t } = useTranslation()
   const { uid, userName } = useAuth()
-  const [addVacancy] = useAddVacancyMutation()
+  const [addVacancy, { isLoading }] = useAddVacancyMutation()
 
   const employmentMap = {
     fourHoursPerDay: t('fourHoursPerDay'),
@@ -62,11 +52,16 @@ const CreateVacancyPage: FC = () => {
   type TypeEmploymentMap = typeof employmentMap
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-    const createdBy = { userName, uid }
-    const newVacancy = convertFormDataToNewVacancy(data, createdBy)
-
-    await addVacancy(newVacancy)
-    //  block button add loading to button
+    try {
+      const createdBy = { userName, uid }
+      const newVacancy = convertFormDataToNewVacancy(data, createdBy)
+      await addVacancy(newVacancy)
+      reset()
+    } catch (error) {
+      const messageError = error as string
+      toast.error(messageError)
+      console.log(error)
+    }
   }
 
   return (
@@ -106,7 +101,7 @@ const CreateVacancyPage: FC = () => {
                   render={({ field }) => (
                     <Select id='employment' className={cls.input} {...field}>
                       {Object.keys(employmentMap).map((key: keyof TypeEmploymentMap, i) => (
-                        <Select.Option key={i} value={key}>{employmentMap[key]}</Select.Option>
+                        <Select.Option key={i} value={employmentMap[key]}>{employmentMap[key]}</Select.Option>
                       ))}
                     </Select>
                   )}
@@ -262,8 +257,8 @@ const CreateVacancyPage: FC = () => {
               {errors.requirements && <span className={cls.error}>{errors.requirements.message}</span>}
             </Form.Item>
             <Button
-              // disabled={Boolean(isError) || isLoading}
-              // loading={isLoading}
+              disabled={Boolean(isLoading)}
+              loading={Boolean(isLoading)}
               htmlType="submit"
               size='large'
               type='primary'

@@ -44,7 +44,7 @@
   "CreateNewVacancy": "Создайте новую вакансию",
   "CreatingOfANewVacancy": "Создание новой вакансии",
   "fourHoursPerDay": "От 4 часов в день",
-  "notFullDay": "'Неполный день'",
+  "notFullDay": "Неполный день",
   "InTheEvenings": "По вечерам",
   "onWeekends": "По выходным",
   "OneTimeTask": "Разовое задание",
@@ -58,5 +58,8 @@
   "employment": "Занятость ",
   "editingVacancy": "Редактирование вакансии",
   "editVacancy": "Редактировать вакансию",
-  "userName": "Имя пользователя "
+  "userName": "Имя пользователя ",
+  "locales": "ru",
+  "YouNeedToLogInOrRegister": "Если вы хотите добавить удалить или отредактировать свои вакансии, вам необходимо авторизоваться или зарегестрироваться ",
+  "listOfYourVacancies": "Список ваших вакансий:"
 }

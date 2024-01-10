@@ -1,12 +1,12 @@
 import { createApi, fakeBaseQuery } from '@reduxjs/toolkit/query/react'
-import { addDoc, collection, deleteDoc, doc, getDocs, serverTimestamp, updateDoc } from 'firebase/firestore'
+import { addDoc, collection, deleteDoc, doc, getDocs, serverTimestamp, updateDoc, query, where } from 'firebase/firestore'
 import { db } from 'app/firebase'
 import { type IVacancy, type INewVacancy } from 'entities/Vacancy/types'
 
 export const vacanciesApi = createApi({
   reducerPath: 'vacancyApi',
   baseQuery: fakeBaseQuery(),
-  tagTypes: ['Vacancies'],
+  tagTypes: ['Vacancies', 'VacanciesByUid'],
   endpoints: (builder) => ({
     fetchVacancies: builder.query({
       async queryFn () {
@@ -14,13 +14,17 @@ export const vacanciesApi = createApi({
           const vacanciesRef = collection(db, 'vacancies')
           const querySnapshot = await getDocs(vacanciesRef)
           const vacancies = [] as any
+
           //  add validation of the response
           querySnapshot?.forEach((doc) => {
+            const { timestamp, ...data } = doc.data()
+
             vacancies.push({
               id: doc.id,
-              ...doc.data()
+              ...data
             })
           })
+
           const TypedVacancies = vacancies as IVacancy[]
           return { data: TypedVacancies }
         } catch (error) {
@@ -29,17 +33,42 @@ export const vacanciesApi = createApi({
       },
       providesTags: ['Vacancies']
     }),
+    fetchVacanciesByUid: builder.query({
+      async queryFn (uid: string) {
+        try {
+          const vacancies = [] as any
+          if (uid) {
+            const vacanciesRef = collection(db, 'vacancies')
+            const q = query(vacanciesRef, where('createdBy.uid', '==', `${uid}`))
+            const querySnapshot = await getDocs(q)
+            //  add validation of the response
+            querySnapshot?.forEach((doc) => {
+              const { timestamp, ...data } = doc.data()
+
+              vacancies.push({
+                id: doc.id,
+                ...data
+              })
+            })
+          }
+          const TypedVacancies = vacancies as IVacancy[]
+          return { data: TypedVacancies }
+        } catch (error) {
+          return { error }
+        }
+      },
+      providesTags: ['VacanciesByUid']
+    }),
     addVacancy: builder.mutation({
       async queryFn (data: INewVacancy) {
         try {
           await addDoc(collection(db, 'vacancies'), data)
-          console.log('vacancy added successfyly')
           return { data: 'ok' }
         } catch (error) {
           return error
         }
       },
-      invalidatesTags: ['Vacancies']
+      invalidatesTags: ['Vacancies', 'VacanciesByUid']
     }),
     removeVacancy: builder.mutation({
       async queryFn (id: string) {
@@ -50,7 +79,7 @@ export const vacanciesApi = createApi({
           return error
         }
       },
-      invalidatesTags: ['Vacancies']
+      invalidatesTags: ['Vacancies', 'VacanciesByUid']
     }),
     updateVacancy: builder.mutation({
       async queryFn ({ id, vacancy }: { id: string, vacancy: INewVacancy }) {
@@ -64,7 +93,7 @@ export const vacanciesApi = createApi({
           return error
         }
       },
-      invalidatesTags: ['Vacancies']
+      invalidatesTags: ['Vacancies', 'VacanciesByUid']
     })
   })
 })
@@ -73,5 +102,6 @@ export const {
   useFetchVacanciesQuery,
   useAddVacancyMutation,
   useRemoveVacancyMutation,
-  useUpdateVacancyMutation
+  useUpdateVacancyMutation,
+  useFetchVacanciesByUidQuery
 } = vacanciesApi

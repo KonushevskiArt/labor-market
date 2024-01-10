@@ -1,16 +1,31 @@
 import cls from './Logout.module.scss'
-import { type FC } from 'react'
+import { useState, type FC } from 'react'
 import { useAuth } from 'shared/hooks/useAuth'
-import { LogoutOutlined } from '@ant-design/icons'
+import { LoadingOutlined, LogoutOutlined } from '@ant-design/icons'
 import { useTypedDispatch } from 'app/store'
 import { removeUser } from 'entities/User/model/userSlice'
+import { getAuth, signOut } from 'firebase/auth'
+import toast from 'react-hot-toast'
 
 export const Logout: FC = () => {
   const { email } = useAuth()
   const dispatch = useTypedDispatch()
 
-  const handleLogout = (): void => {
-    dispatch(removeUser())
+  const [isLoading, setLoading] = useState(false)
+
+  const handleLogout = async (): Promise<void> => {
+    try {
+      setLoading(true)
+      const auth = getAuth()
+      await signOut(auth)
+      dispatch(removeUser())
+    } catch (error) {
+      const messageError = error.message as string
+      toast.error(messageError)
+      console.log(error)
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -21,7 +36,10 @@ export const Logout: FC = () => {
         className={cls.logoutButton}
         title="logout"
       >
-        <LogoutOutlined className={cls.logoutIcon} />
+        {isLoading
+          ? <LoadingOutlined className={cls.Icon} />
+          : <LogoutOutlined className={cls.Icon} />}
+
       </button>
     </div>
   )

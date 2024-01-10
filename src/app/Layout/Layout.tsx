@@ -19,8 +19,7 @@ import { Logout } from 'Features/Auth/Logout'
 const AppLayout: React.FC = () => {
   const { theme } = useTheme()
   const { t } = useTranslation()
-  const { isAuth, email } = useAuth()
-  console.log(isAuth, email)
+  const { isAuth } = useAuth()
 
   return (
     <div className={classNames('app', {}, [theme])}>
