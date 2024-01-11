@@ -19,7 +19,7 @@ export const SearchBar: FC = ({ className }: SearchBarProps) => {
   return (
     <div className={classNames(cls.SearchBar, {}, [className])}>
       <div className={cls.wrapper}>
-        <Search placeholder={t('searchText')} onSearch={onSearch} enterButton />
+        <Search disabled placeholder={t('searchText')} onSearch={onSearch} enterButton />
       </div>
     </div>
   )
