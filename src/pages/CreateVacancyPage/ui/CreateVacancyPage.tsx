@@ -47,7 +47,8 @@ const CreateVacancyPage: FC = () => {
     notFullDay: t('notFullDay'),
     inTheEvenings: t('InTheEvenings'),
     onWeekends: t('onWeekends'),
-    oneTimeTask: t('OneTimeTask')
+    oneTimeTask: t('OneTimeTask'),
+    fullTime: t('fullTime')
   }
   type TypeEmploymentMap = typeof employmentMap
 

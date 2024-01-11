@@ -63,5 +63,6 @@
   "userName": "User name",
   "locales": "en",
   "YouNeedToLogInOrRegister": "If you want to add, delete or edit your vacancies, you need to log in or register",
-  "listOfYourVacancies": "List of your vacancies:"
+  "listOfYourVacancies": "List of your vacancies:",
+  "fullTime": "Full-time"
 }

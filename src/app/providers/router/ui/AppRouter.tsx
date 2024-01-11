@@ -9,6 +9,7 @@ import { type FC, Suspense } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import { RouterPaths } from 'shared/RouterPaths'
 import PageSkeleton from 'widgets/PageSkeleton'
+import { RequireAuth } from './RequireAuth'
 
 const AppRouter: FC = () => {
   return (
@@ -17,8 +18,20 @@ const AppRouter: FC = () => {
         <Route path={RouterPaths.homePage} element={<SearchVacancy />} />
         <Route path={RouterPaths.vacancyPage()} element={<VacancyPage />} />
         <Route path={RouterPaths.aboutPage} element={<AboutPage />} />
-        <Route path={RouterPaths.createVacancyPage} element={<CreateVacancyPage />} />
-        <Route path={RouterPaths.editVacancyPage()} element={<EditVacancyPage />} />
+        <Route
+          path={RouterPaths.createVacancyPage}
+          element={
+            <RequireAuth>
+              <CreateVacancyPage />
+            </RequireAuth>}
+        />
+        <Route
+          path={RouterPaths.editVacancyPage()}
+          element={
+            <RequireAuth>
+              <EditVacancyPage />
+            </RequireAuth>}
+        />
         <Route path={RouterPaths.personalCabinetPage} element={<PersonalCabinetPage />} />
         <Route path={RouterPaths.notFoundPage} element={<NotFoundPage />} />
       </Routes>

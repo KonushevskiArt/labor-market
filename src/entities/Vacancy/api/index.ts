@@ -11,10 +11,11 @@ export const vacanciesApi = createApi({
     fetchVacancies: builder.query({
       async queryFn () {
         try {
-          const vacanciesRef = collection(db, 'vacancies')
+          const vacanciesRef = query(collection(db, 'vacancies'))
           const querySnapshot = await getDocs(vacanciesRef)
           const vacancies = [] as any
 
+          console.log('snapshot', querySnapshot)
           //  add validation of the response
           querySnapshot?.forEach((doc) => {
             const { timestamp, ...data } = doc.data()
