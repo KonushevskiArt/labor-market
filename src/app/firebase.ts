@@ -5,6 +5,7 @@ import { getStorage } from 'firebase/storage'
 
 console.log(process.env.API_KEY)
 console.log(process.env.AUTH_DOMAIN)
+console.log('process.env', process.env)
 
 const firebaseConfig = {
   apiKey: process.env.API_KEY,
