@@ -4,6 +4,7 @@ import { type BuildOptions } from './types/config'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import CopyPlugin from 'copy-webpack-plugin'
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
+import Dotenv from 'dotenv-webpack'
 
 export function buildPlugins ({
   paths, isDev
@@ -24,7 +25,8 @@ export function buildPlugins ({
       patterns: [
         { from: paths.locales, to: paths.buildLocales }
       ]
-    })
+    }),
+    new Dotenv()
   ]
 
   if (isDev) {
