@@ -6,6 +6,7 @@ import { Divider, Button } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import { DollarOutlined, HomeOutlined, HourglassOutlined, LinkOutlined, PhoneOutlined, PieChartOutlined, UserOutlined } from '@ant-design/icons'
+import { RouterPaths } from 'shared/RouterPaths'
 
 interface VacancyProps {
   data: IVacancy
@@ -46,7 +47,7 @@ export const Vacancy: FC<VacancyProps> = ({ data }) => {
   return (
     <div className={classNames(cls.Vacancy, {}, [])}>
       <h3 className={cls.title}>
-        <Link className='link' to={`/${id}`} state={{ data }}><LinkOutlined /> {title}</Link>
+        <Link className='link' to={RouterPaths.vacancyPage(id)} state={{ data }}><LinkOutlined /> {title}</Link>
       </h3>
       <Divider plain></Divider>
       <p className={cls.paragraph}><UserOutlined className='icon' /><i>{t('createdBy')}</i>: <b>{createdBy.userName}</b></p>
