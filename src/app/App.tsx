@@ -6,6 +6,7 @@ import { type FC } from 'react'
 import './firebase.ts'
 
 const App: FC = () => {
+  console.log('test for vercel ')
   return (
     <>
       <ThemeProvider>
